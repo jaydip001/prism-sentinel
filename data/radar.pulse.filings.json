@@ -1,0 +1,39 @@
+{
+  "meta": {
+    "source": "demo",
+    "generated_by": "pulse_engine",
+    "engine": "python",
+    "skipped_rows": 0,
+    "tickers": 3,
+    "rows": 15
+  },
+  "companies": [
+    {
+      "ticker": "DRREDDY",
+      "company": "Dr Reddys Labs",
+      "period": "ytd",
+      "value": 6.0,
+      "prior": 5.0,
+      "z": 1.8593393604027364,
+      "trend": "up"
+    },
+    {
+      "ticker": "RELIANCE",
+      "company": "Reliance Industries",
+      "period": "ytd",
+      "value": 11.0,
+      "prior": 9.0,
+      "z": 2.4961508830135313,
+      "trend": "up"
+    },
+    {
+      "ticker": "TATAMOTORS",
+      "company": "Tata Motors",
+      "period": "ytd",
+      "value": 7.0,
+      "prior": 5.0,
+      "z": 3.1304951684997055,
+      "trend": "up"
+    }
+  ]
+}

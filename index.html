@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PRISM SENTINEL · pre-results pulse radar — Indian public markets</title>
+<link rel="stylesheet" href="ui/style.css">
+</head>
+<body>
+<div id="fallback-banner" class="banner" hidden>
+  This view is running on the <span class="ok">embedded demo</span> dataset
+  (fetch of <code>data/radar.json</code> was unavailable).
+  Open <code>build/build.html</code> for the full offline build —
+  make it with <code>npm run build-offline</code> (or
+  <code>node server.js</code> → http://localhost:3000 for live local data).
+</div>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark">◈</span>
+    <span class="brand-name">PRISM&nbsp;SENTINEL</span>
+    <span class="brand-sub">pre-results pulse radar · Indian public markets</span>
+  </div>
+  <div class="topbar-right">
+    <span class="pill" id="asof-pill">data as of: —</span>
+    <span class="pill pill-engine" id="engine-pill">engine: —</span>
+    <span class="pill pill-demo">DEMO data — not investment advice</span>
+  </div>
+</header>
+
+<main>
+  <!-- ============ MARKET PULSE (aggregate) ============ -->
+  <section id="panel-market" class="panel">
+    <h2>Market Pulse
+      <span class="h2-sub">composite 0–100 · filings · power · geo · hiring · supply chain</span>
+    </h2>
+
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-label">companies</div><div class="kpi-value" id="kpi-count">–</div></div>
+      <div class="kpi"><div class="kpi-label">avg pulse</div><div class="kpi-value" id="kpi-avg">–</div></div>
+      <div class="kpi"><div class="kpi-label">positive</div><div class="kpi-value pos" id="kpi-pos">–</div></div>
+      <div class="kpi"><div class="kpi-label">negative</div><div class="kpi-value neg" id="kpi-neg">–</div></div>
+      <div class="kpi"><div class="kpi-label">top momentum</div><div class="kpi-value" id="kpi-top">–</div></div>
+    </div>
+
+    <div id="heat-strip" class="heat-strip" title="sector heat · top movers by pulse"></div>
+
+    <h3 class="tbl-sub">top divergences <span class="h2-sub">rank · company · channel pair · z · direction</span></h3>
+    <table class="div-table" id="div-table">
+      <thead>
+        <tr>
+          <th style="width:34px">#</th>
+          <th>company</th>
+          <th>channel pair</th>
+          <th class="num">gap</th>
+          <th>reading</th>
+        </tr>
+      </thead>
+      <tbody id="div-body"></tbody>
+    </table>
+  </section>
+
+  <!-- ============ COMPANY DETAIL ============ -->
+  <section id="panel-company" class="panel detail-layout">
+    <div class="company-strip">
+      <h3>On the radar <span id="company-strip-meta" class="h2-sub"></span></h3>
+      <div id="company-strip" class="co-list"></div>
+    </div>
+
+    <div id="detail-panel" class="detail-panel">
+      <div class="muted" id="detail-empty">No radar data yet — run
+        <code>node engine/index.js radar</code> (or <code>npm run radar</code>) then reload.</div>
+
+      <div id="detail-body" hidden>
+        <div class="head">
+          <span class="cname" id="d-name">—</span>
+          <span class="ctk" id="d-ticker"></span>
+          <span class="cmeta" id="d-sector"></span>
+        </div>
+
+        <div class="gauge-wrap">
+          <div class="gauge" id="d-gauge">
+            <!-- gauge SVG injected here -->
+            <div class="gauge-num" id="d-gauge-num">—</div>
+            <div class="gauge-zone" id="d-gauge-zone">—</div>
+          </div>
+
+          <div class="sent">
+            <span class="sent-label">sentiment</span>
+            <p class="sent-line" id="d-sentiment">—</p>
+            <div class="chips" id="d-flags"></div>
+          </div>
+        </div>
+
+        <div class="chips" style="margin-top:14px" id="d-events"></div>
+
+        <div class="channels" id="d-channels"></div>
+
+        <div class="brief-grid">
+          <div class="brief-box" id="d-brief">
+            <h4>why this matters</h4>
+            <div id="d-brief-body"></div>
+          </div>
+          <div class="brief-box" id="d-quality">
+            <h4>data quality &amp; confidence</h4>
+            <div id="d-quality-body"></div>
+          </div>
+          <div class="brief-box" id="d-sources">
+            <h4>sources</h4>
+            <ul id="d-sources-body"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ UNIVERSE COVERAGE ============ -->
+  <section id="panel-universe" class="panel">
+    <h2>Universe Coverage
+      <span class="h2-sub">nifty50 / bse500 placeholder pulse</span>
+    </h2>
+    <div id="universe-rows" class="universe-rows">
+      <div class="muted">No universe data — run <code>node engine/index.js all</code> then reload.</div>
+    </div>
+  </section>
+
+  <!-- ============ PULSE (power feed) ============ -->
+  <section id="panel-pulse" class="panel">
+    <h2>Power-Feed Pulse
+      <span class="h2-sub">electricity feed · MWh · z vs trailing window</span>
+    </h2>
+    <div id="pulse-rows" class="universe-rows">
+      <div class="muted">No pulse data — run <code>npm run pulse</code> (python3 or node fallback) then reload.</div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <span>PRISM Labs take-home · fully local · zero dependencies · demo synthetic data · not investment advice</span>
+  <span>live plug-ins (documented, not called): SEBI RSS · CERC/MoP power · GDS/CIN · job-board &amp; consented-geo composites</span>
+</footer>
+
+<script src="ui/app.js"></script>
+<script>/*__INLINED_DATA__*/</script>
+</body>
+</html>

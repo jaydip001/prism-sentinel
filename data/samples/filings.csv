@@ -1,0 +1,18 @@
+# PRISM Sentinel — DEMO DATA (synthetic; standing-in for SEBI e-filing RSS + BSE/NSE announcements)
+# Columns: ticker,company,period,value  (value = count of disclosures in period, demo scale)
+ticker,company,period,value
+RELIANCE,Reliance Industries,q1,4
+RELIANCE,Reliance Industries,q2,6
+RELIANCE,Reliance Industries,q3,7
+RELIANCE,Reliance Industries,q4,9
+RELIANCE,Reliance Industries,ytd,11
+DRREDDY,Dr Reddys Labs,q1,1
+DRREDDY,Dr Reddys Labs,q2,3
+DRREDDY,Dr Reddys Labs,q3,4
+DRREDDY,Dr Reddys Labs,q4,5
+DRREDDY,Dr Reddys Labs,ytd,6
+TATAMOTORS,Tata Motors,q1,2
+TATAMOTORS,Tata Motors,q2,3
+TATAMOTORS,Tata Motors,q3,4
+TATAMOTORS,Tata Motors,q4,5
+TATAMOTORS,Tata Motors,ytd,7

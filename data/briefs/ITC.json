@@ -1,0 +1,29 @@
+{
+  "ticker": "ITC",
+  "company": "ITC Ltd",
+  "pulse": 52,
+  "sentiment": "positive",
+  "confidence": 0.7,
+  "flags": [
+    "capacity-expansion-signal",
+    "order-book-upturn",
+    "disclosure-acceleration"
+  ],
+  "divergences": [
+    {
+      "pair": [
+        "filings",
+        "employee-geolocations"
+      ],
+      "gap": 0.7,
+      "reading": "strongest signal (filings, up) vs weakest (employee-geolocations, flat) — asymmetric momentum across channels"
+    }
+  ],
+  "brief_text": "# ITC — ITC Ltd (DEMO BRIEF)\n\nComposite pulse: 52/100 · sentiment positive · confidence 0.7\nCoverage: all five channels present\n\n## Channels\n- filings: 5 vs prior 3 (66.7%; z=0.7; up)\n- factory-power: 1930 vs prior 1760 (9.7%; z=0.1; up)\n- employee-geolocations: 24110 vs prior 23890 (0.9%; z=0; flat)\n- hiring-social: 310 vs prior 205 (51.2%; z=0.5; up)\n- supply-chain: 95 vs prior 71 (33.8%; z=0.3; up)\n\n## Flags\n- capacity-expansion-signal\n- order-book-upturn\n- disclosure-acceleration\n\n## Divergences\n- filings <-> employee-geolocations: strongest signal (filings, up) vs weakest (employee-geolocations, flat) — asymmetric momentum across channels\n\n---\nDEMO DATA — synthetic demo signals; not investment research. Live mode would source SEBI/GDS filings, MoP power data, consented geolocation & hiring aggregates.",
+  "data_quality": {
+    "channels_present": 5,
+    "channels_total": 5,
+    "coverage_pct": 100,
+    "note": "all five channels present"
+  }
+}

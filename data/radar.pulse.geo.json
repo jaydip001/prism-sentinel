@@ -1,0 +1,39 @@
+{
+  "meta": {
+    "source": "demo",
+    "generated_by": "pulse_engine",
+    "engine": "python",
+    "skipped_rows": 0,
+    "tickers": 3,
+    "rows": 15
+  },
+  "companies": [
+    {
+      "ticker": "HDFCBANK",
+      "company": "HDFC Bank",
+      "period": "ytd",
+      "value": 42.7,
+      "prior": 42.1,
+      "z": 2.589219434353965,
+      "trend": "flat"
+    },
+    {
+      "ticker": "TITAN",
+      "company": "Titan Ltd",
+      "period": "ytd",
+      "value": 13.4,
+      "prior": 12.9,
+      "z": 2.4875929755249717,
+      "trend": "flat"
+    },
+    {
+      "ticker": "WIPRO",
+      "company": "Wipro",
+      "period": "ytd",
+      "value": 46.5,
+      "prior": 47.2,
+      "z": -2.3542496190755458,
+      "trend": "flat"
+    }
+  ]
+}

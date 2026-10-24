@@ -1,0 +1,87 @@
+# PRISM SENTINEL — DEMO SIGNAL FEED (synthetic; DEMO data only, not from any real company or regulator)
+# Columns: ticker,company,channel,period,current,prior,strength
+#  channel: filings | factory-power | employee-geolocations | hiring-social | supply-chain
+#  period:  q2 (demo quarter); current vs prior-period value; strength in [0,1]
+# Live mode replaces this CSV with SEBI filing RSS, CERC/MoP power data, GDS/CIN,
+# job-board and consented geolocation composites — see engine/index.js header.
+ticker,company,channel,period,current,prior,strength
+TITAN,Titan Ltd,filings,q2,3,2,0.6
+TITAN,Titan Ltd,factory-power,q2,412,380,0.8
+TITAN,Titan Ltd,employee-geolocations,q2,11840,11610,0.5
+TITAN,Titan Ltd,hiring-social,q2,142,121,0.7
+TITAN,Titan Ltd,supply-chain,q2,87,82,0.6
+ITC,ITC Ltd,filings,q2,5,3,0.9
+ITC,ITC Ltd,factory-power,q2,1930,1760,0.9
+ITC,ITC Ltd,employee-geolocations,q2,24110,23890,0.4
+ITC,ITC Ltd,hiring-social,q2,310,205,0.8
+ITC,ITC Ltd,supply-chain,q2,95,71,0.8
+HDFCBANK,HDFC Bank,filings,q2,2,1,0.5
+HDFCBANK,HDFC Bank,factory-power,q2,2210,2190,0.3
+HDFCBANK,HDFC Bank,employee-geolocations,q2,41020,40800,0.4
+HDFCBANK,HDFC Bank,hiring-social,q2,95,88,0.5
+HDFCBANK,HDFC Bank,supply-chain,q2,64,60,0.4
+INFY,Infosys,filings,q2,4,2,0.7
+INFY,Infosys,factory-power,q2,1540,1610,0.6
+INFY,Infosys,employee-geolocations,q2,30110,30240,0.5
+INFY,Infosys,hiring-social,q2,410,520,0.7
+INFY,Infosys,supply-chain,q2,55,58,0.3
+WIPRO,Wipro,filings,q2,2,1,0.4
+WIPRO,Wipro,factory-power,q2,890,920,0.5
+WIPRO,Wipro,employee-geolocations,q2,48700,49100,0.5
+WIPRO,Wipro,hiring-social,q2,210,340,0.7
+WIPRO,Wipro,supply-chain,q2,40,46,0.4
+TCS,Tata Consultancy Services,filings,q2,1,1,0.3
+TCS,Tata Consultancy Services,factory-power,q2,2350,2380,0.4
+TCS,Tata Consultancy Services,employee-geolocations,q2,56400,56200,0.3
+TCS,Tata Consultancy Services,hiring-social,q2,85,120,0.6
+TCS,Tata Consultancy Services,supply-chain,q2,30,35,0.3
+RELIANCE,Reliance Industries,filings,q2,6,4,0.8
+RELIANCE,Reliance Industries,factory-power,q2,8810,8450,0.9
+RELIANCE,Reliance Industries,employee-geolocations,q2,12750,12600,0.4
+RELIANCE,Reliance Industries,hiring-social,q2,240,190,0.7
+RELIANCE,Reliance Industries,supply-chain,q2,92,85,0.8
+TATAMOTORS,Tata Motors,filings,q2,3,2,0.6
+TATAMOTORS,Tata Motors,factory-power,q2,3980,3560,0.9
+TATAMOTORS,Tata Motors,employee-geolocations,q2,9450,8800,0.7
+TATAMOTORS,Tata Motors,hiring-social,q2,175,150,0.5
+TATAMOTORS,Tata Motors,supply-chain,q2,88,74,0.7
+SUNPHARMA,Sun Pharma,filings,q2,4,2,0.7
+SUNPHARMA,Sun Pharma,factory-power,q2,1120,1010,0.8
+SUNPHARMA,Sun Pharma,employee-geolocations,q2,6730,6580,0.4
+SUNPHARMA,Sun Pharma,hiring-social,q2,160,135,0.6
+SUNPHARMA,Sun Pharma,supply-chain,q2,71,66,0.6
+DRREDDY,Dr Reddys Labs,filings,q2,3,1,0.7
+DRREDDY,Dr Reddys Labs,factory-power,q2,940,910,0.6
+DRREDDY,Dr Reddys Labs,employee-geolocations,q2,5120,5090,0.3
+DRREDDY,Dr Reddys Labs,hiring-social,q2,98,85,0.5
+DRREDDY,Dr Reddys Labs,supply-chain,q2,60,55,0.5
+ADANIPORTS,Adani Ports & SEZ,filings,q2,2,1,0.5
+ADANIPORTS,Adani Ports & SEZ,factory-power,q2,1470,1430,0.6
+ADANIPORTS,Adani Ports & SEZ,employee-geolocations,q2,3260,3210,0.3
+ADANIPORTS,Adani Ports & SEZ,hiring-social,q2,55,48,0.4
+ADANIPORTS,Adani Ports & SEZ,supply-chain,q2,74,70,0.6
+LT,Larsen & Toubro,filings,q2,3,2,0.6
+LT,Larsen & Toubro,factory-power,q2,1210,1150,0.7
+LT,Larsen & Toubro,employee-geolocations,q2,15200,14900,0.4
+LT,Larsen & Toubro,hiring-social,q2,205,185,0.5
+LT,Larsen & Toubro,supply-chain,q2,81,77,0.6
+BAJFINANCE,Bajaj Finance,filings,q2,2,1,0.5
+BAJFINANCE,Bajaj Finance,factory-power,q2,640,610,0.6
+BAJFINANCE,Bajaj Finance,employee-geolocations,q2,4310,4150,0.5
+BAJFINANCE,Bajaj Finance,hiring-social,q2,220,180,0.7
+BAJFINANCE,Bajaj Finance,supply-chain,q2,45,42,0.4
+MARUTI,Maruti Suzuki,filings,q2,2,1,0.5
+MARUTI,Maruti Suzuki,factory-power,q2,2130,2050,0.7
+MARUTI,Maruti Suzuki,employee-geolocations,q2,5890,5670,0.5
+MARUTI,Maruti Suzuki,hiring-social,q2,90,72,0.5
+MARUTI,Maruti Suzuki,supply-chain,q2,69,61,0.7
+ASHOKLEY,Shriram Transport,filings,q2,1,0,0.4
+ASHOKLEY,Shriram Transport,factory-power,q2,310,290,0.5
+ASHOKLEY,Shriram Transport,employee-geolocations,q2,1450,1430,0.2
+ASHOKLEY,Shriram Transport,hiring-social,q2,35,30,0.4
+ASHOKLEY,Shriram Transport,supply-chain,q2,52,48,0.5
+HCLTech,HCLTech,filings,q2,3,1,0.6
+HCLTech,HCLTech,factory-power,q2,1180,1240,0.5
+HCLTech,HCLTech,employee-geolocations,q2,21350,21480,0.4
+HCLTech,HCLTech,hiring-social,q2,180,230,0.6
+HCLTech,HCLTech,supply-chain,q2,38,42,0.4

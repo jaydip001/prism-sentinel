@@ -1,0 +1,483 @@
+{
+  "meta": {
+    "generated_by": "engine/index.js",
+    "deterministic": true,
+    "universes": [
+      "nifty50",
+      "bse500"
+    ],
+    "note": "Placeholders only: pulse computed where sample-signals.csv covers a ticker, else null + \"insufficient data\". Live mode would pull SEBI filing RSS, CERC/MoP power data, GDS/CIN registry, job-board and consented geolocation aggregates — listed in the engine header; no network calls are made anywhere in this project."
+  },
+  "nifty50": [
+    {
+      "ticker": "ADANIPORTS",
+      "company": "Adani Ports & Special Economic Zone Corp",
+      "pulse": 30,
+      "sentiment": "positive",
+      "flags": [
+        "disclosure-acceleration"
+      ],
+      "data": "sample-signals"
+    },
+    {
+      "ticker": "APOLLOHOSPITALS",
+      "company": "Apollo Hospitals Enterprise",
+      "pulse": null,
+      "sentiment": null,
+      "flags": [],
+      "data": "insufficient data"
+    },
+    {
+      "ticker": "ASIANPAINT",
+      "company": "Asian Paints",
+      "pulse": null,
+      "sentiment": null,
+      "flags": [],
+      "data": "insufficient data"
+    },
+    {
+      "ticker": "AXISBANK",
+      "company": "Axis Bank",
+      "pulse": null,
+      "sentiment": null,
+      "flags": [],
+      "data": "insufficient data"
+    },
+    {
+      "ticker": "BAJAJFINSV",
+      "company": "Bajaj Finserv",
+      "pulse": null,
+      "sentiment": null,
+      "flags": [],
+      "data": "insufficient data"
+    },
+    {
+      "ticker": "BAJFINANCE",
+      "company": "Bajaj Finance",
+      "pulse": 34,
+      "sentiment": "positive",
+      "flags": [
+        "disclosure-acceleration"
+      ],
+      "data": "sample-signals"
+    },
+    {
+      "ticker": "BHARTIARTL",
+      "company": "Bharti Airtel",
+      "pulse": null,
+      "sentiment": null,
+      "flags": [],
+      "data": "insufficient data"
+    },
+    {
+      "ticker": "CIPLA",
+      "company": "Cipla",
+      "pulse": null,
+      "sentiment": null,
+      "flags": [],
+      "data": "insufficient data"
+    },
+    {
+      "ticker": "COALINDIA",
+      "company": "Coal India",
+      "pulse": null,
+      "sentiment": null,
+      "flags": [],
+      "data": "insufficient data"
+    },
+    {
+      "ticker": "DRREDDY",
+      "company": "Dr Reddy's Laboratories",
+      "pulse": 34,
+      "sentiment": "positive",
+      "flags": [
+        "disclosure-acceleration"
+      ],
+      "data": "sample-signals"
+    },
+    {
+      "ticker": "EICHERMOT",
+      "company": "Eicher Motors",
+      "pulse": null,
+      "sentiment": null,
+      "flags": [],
+      "data": "insufficient data"
+    },
+    {
+      "ticker": "HCLTECH",
+      "company": "HCL Technologies",
+      "pulse": 33,
+      "sentiment": "negative",
+      "flags": [
+        "hiring-retrenchment",
+        "disclosure-acceleration"
+      ],
+      "data": "sample-signals"
+    },
+    {
+      "ticker": "HDFCBANK",
+      "company": "HDFC Bank",
+      "pulse": 27,
+      "sentiment": "positive",
+      "flags": [
+        "disclosure-acceleration"
+      ],
+      "data": "sample-signals"
+    },
+    {
+      "ticker": "HDFCLIFE",
+      "company": "HDFC Life Insurance",
+      "pulse": null,
+      "sentiment": null,
+      "flags": [],
+      "data": "insufficient data"
+    },
+    {
+      "ticker": "HEROMOTOCO",
+      "company": "Hero MotoCorp",
+      "pulse": null,
+      "sentiment": null,
+      "flags": [],
+      "data": "insufficient data"
+    },
+    {
+      "ticker": "ICICIBANK",
+      "company": "ICICI Bank",
+      "pulse": null,
+      "sentiment": null,
+      "flags": [],
+      "data": "insufficient data"
+    },
+    {
+      "ticker": "INFY",
+      "company": "Infosys",
+      "pulse": 37,
+      "sentiment": "negative",
+      "flags": [
+        "hiring-retrenchment",
+        "disclosure-acceleration"
+      ],
+      "data": "sample-signals"
+    },
+    {
+      "ticker": "ITC",
+      "company": "ITC",
+      "pulse": 52,
+      "sentiment": "positive",
+      "flags": [
+        "capacity-expansion-signal",
+        "order-book-upturn",
+        "disclosure-acceleration"
+      ],
+      "data": "sample-signals"
+    },
+    {
+      "ticker": "LT",
+      "company": "Larsen & Toubro",
+      "pulse": 32,
+      "sentiment": "positive",
+      "flags": [
+        "disclosure-acceleration"
+      ],
+      "data": "sample-signals"
+    },
+    {
+      "ticker": "MARUTI",
+      "company": "Maruti Suzuki India",
+      "pulse": 37,
+      "sentiment": "positive",
+      "flags": [
+        "order-book-upturn",
+        "disclosure-acceleration"
+      ],
+      "data": "sample-signals"
+    },
+    {
+      "ticker": "MM",
+      "company": "Mahindra & Mahindra",
+      "pulse": null,
+      "sentiment": null,
+      "flags": [],
+      "data": "insufficient data"
+    },
+    {
+      "ticker": "NESTLEIND",
+      "company": "Nestle India",
+      "pulse": null,
+      "sentiment": null,
+      "flags": [],
+      "data": "insufficient data"
+    },
+    {
+      "ticker": "NTPC",
+      "company": "NTPC",
+      "pulse": null,
+      "sentiment": null,
+      "flags": [],
+      "data": "insufficient data"
+    },
+    {
+      "ticker": "ONGC",
+      "company": "Oil & Natural Gas Corp",
+      "pulse": null,
+      "sentiment": null,
+      "flags": [],
+      "data": "insufficient data"
+    },
+    {
+      "ticker": "POWERGRID",
+      "company": "Power Grid Corporation of India",
+      "pulse": null,
+      "sentiment": null,
+      "flags": [],
+      "data": "insufficient data"
+    },
+    {
+      "ticker": "RELIANCE",
+      "company": "Reliance Industries",
+      "pulse": 43,
+      "sentiment": "positive",
+      "flags": [
+        "disclosure-acceleration"
+      ],
+      "data": "sample-signals"
+    },
+    {
+      "ticker": "SBILIFE",
+      "company": "SBI Life Insurance",
+      "pulse": null,
+      "sentiment": null,
+      "flags": [],
+      "data": "insufficient data"
+    },
+    {
+      "ticker": "SBIN",
+      "company": "State Bank of India",
+      "pulse": null,
+      "sentiment": null,
+      "flags": [],
+      "data": "insufficient data"
+    },
+    {
+      "ticker": "SHRIRAMFIN",
+      "company": "Shriram Finance",
+      "pulse": null,
+      "sentiment": null,
+      "flags": [],
+      "data": "insufficient data"
+    },
+    {
+      "ticker": "SUNPHARMA",
+      "company": "Sun Pharmaceutical",
+      "pulse": 41,
+      "sentiment": "positive",
+      "flags": [
+        "capacity-expansion-signal",
+        "disclosure-acceleration"
+      ],
+      "data": "sample-signals"
+    },
+    {
+      "ticker": "TATAMOTORS",
+      "company": "Tata Motors",
+      "pulse": 41,
+      "sentiment": "positive",
+      "flags": [
+        "capacity-expansion-signal",
+        "order-book-upturn",
+        "disclosure-acceleration"
+      ],
+      "data": "sample-signals"
+    },
+    {
+      "ticker": "TATASTEEL",
+      "company": "Tata Steel",
+      "pulse": null,
+      "sentiment": null,
+      "flags": [],
+      "data": "insufficient data"
+    },
+    {
+      "ticker": "TCS",
+      "company": "Tata Consultancy Services",
+      "pulse": 21,
+      "sentiment": "negative",
+      "flags": [
+        "hiring-retrenchment"
+      ],
+      "data": "sample-signals"
+    },
+    {
+      "ticker": "TECHM",
+      "company": "Tech Mahindra",
+      "pulse": null,
+      "sentiment": null,
+      "flags": [],
+      "data": "insufficient data"
+    },
+    {
+      "ticker": "TITAN",
+      "company": "Titan Company",
+      "pulse": 37,
+      "sentiment": "positive",
+      "flags": [
+        "capacity-expansion-signal",
+        "disclosure-acceleration"
+      ],
+      "data": "sample-signals"
+    },
+    {
+      "ticker": "TRENT",
+      "company": "Trent",
+      "pulse": null,
+      "sentiment": null,
+      "flags": [],
+      "data": "insufficient data"
+    },
+    {
+      "ticker": "ULTRACEMCO",
+      "company": "UltraTech Cement",
+      "pulse": null,
+      "sentiment": null,
+      "flags": [],
+      "data": "insufficient data"
+    },
+    {
+      "ticker": "WIPRO",
+      "company": "Wipro",
+      "pulse": 32,
+      "sentiment": "negative",
+      "flags": [
+        "hiring-retrenchment",
+        "disclosure-acceleration"
+      ],
+      "data": "sample-signals"
+    }
+  ],
+  "bse500": [
+    {
+      "ticker": "BAJAJ-AUTO",
+      "company": "Bajaj Auto",
+      "pulse": null,
+      "sentiment": null,
+      "flags": [],
+      "data": "insufficient data"
+    },
+    {
+      "ticker": "BERA",
+      "company": "Berger Paints India",
+      "pulse": null,
+      "sentiment": null,
+      "flags": [],
+      "data": "insufficient data"
+    },
+    {
+      "ticker": "CANBK",
+      "company": "Canara Bank",
+      "pulse": null,
+      "sentiment": null,
+      "flags": [],
+      "data": "insufficient data"
+    },
+    {
+      "ticker": "CENTURYFERRO",
+      "company": "Century Ferro Alloys",
+      "pulse": null,
+      "sentiment": null,
+      "flags": [],
+      "data": "insufficient data"
+    },
+    {
+      "ticker": "DALMIACEMENT",
+      "company": "Dalmia Cements",
+      "pulse": null,
+      "sentiment": null,
+      "flags": [],
+      "data": "insufficient data"
+    },
+    {
+      "ticker": "DIVISLAB",
+      "company": "Divi's Laboratories",
+      "pulse": null,
+      "sentiment": null,
+      "flags": [],
+      "data": "insufficient data"
+    },
+    {
+      "ticker": "ESCORTSKUBOTA",
+      "company": "Escorts Kubota",
+      "pulse": null,
+      "sentiment": null,
+      "flags": [],
+      "data": "insufficient data"
+    },
+    {
+      "ticker": "JSWSTEEL",
+      "company": "JSW Steel",
+      "pulse": null,
+      "sentiment": null,
+      "flags": [],
+      "data": "insufficient data"
+    },
+    {
+      "ticker": "LUPIN",
+      "company": "Lupin",
+      "pulse": null,
+      "sentiment": null,
+      "flags": [],
+      "data": "insufficient data"
+    },
+    {
+      "ticker": "PERSISTENT",
+      "company": "Persistent Systems",
+      "pulse": null,
+      "sentiment": null,
+      "flags": [],
+      "data": "insufficient data"
+    },
+    {
+      "ticker": "POLYCAB",
+      "company": "Polycab India",
+      "pulse": null,
+      "sentiment": null,
+      "flags": [],
+      "data": "insufficient data"
+    },
+    {
+      "ticker": "SUVENPHARMA",
+      "company": "Suven Pharma",
+      "pulse": null,
+      "sentiment": null,
+      "flags": [],
+      "data": "insufficient data"
+    },
+    {
+      "ticker": "SUZLON",
+      "company": "Suzlon Energy",
+      "pulse": null,
+      "sentiment": null,
+      "flags": [],
+      "data": "insufficient data"
+    },
+    {
+      "ticker": "TATACOMM",
+      "company": "Tata Communications",
+      "pulse": null,
+      "sentiment": null,
+      "flags": [],
+      "data": "insufficient data"
+    },
+    {
+      "ticker": "TATAPOWER",
+      "company": "Tata Power",
+      "pulse": null,
+      "sentiment": null,
+      "flags": [],
+      "data": "insufficient data"
+    }
+  ],
+  "coverage": {
+    "nifty50_with_pulse": 15,
+    "bse500_with_pulse": 0
+  }
+}

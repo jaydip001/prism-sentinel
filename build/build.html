@@ -1,0 +1,4477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PRISM SENTINEL · pre-results pulse radar — Indian public markets</title>
+<style>
+/* PRISM SENTINEL — quant-terminal dark theme.
+   Zero external assets: no fonts, no images, no CDN. Pure CSS + inline SVG. */
+
+:root {
+  --bg-0: #05080f;
+  --bg-1: #0a1018;
+  --bg-2: #101a26;
+  --bg-3: #16232f;
+  --line: #1d2b3a;
+  --line-2: #24384a;
+  --text: #cfe0ee;
+  --dim: #7d92a8;
+  --dim-2: #54687c;
+  --accent: #35e08a;      /* up / positive */
+  --accent-2: #4f9cff;    /* secondary / link */
+  --hot: #ffb43a;         /* warm / elevated */
+  --cold: #5f7fa6;        /* cool / flat */
+  --neg: #ff5d6c;         /* down / negative */
+  --mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, "Liberation Mono", monospace;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --radius: 10px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(1100px 480px at 75% -8%, rgba(53, 224, 138, 0.055), transparent 62%),
+    radial-gradient(850px 420px at 8% 108%, rgba(79, 156, 255, 0.05), transparent 60%),
+    var(--bg-0);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---- top banner (file:// fallback notice) ---- */
+.banner {
+  padding: 8px 20px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.03em;
+  background: #2a230e;
+  color: #ffdf9e;
+  border-bottom: 1px solid #55430f;
+}
+.banner code { color: #ffe6b3; }
+.banner .ok { color: #9ff0bd; }
+
+/* ---- top bar ---- */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 14px 22px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(8, 13, 20, 0.86);
+  backdrop-filter: blur(6px);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+.brand { display: flex; align-items: center; gap: 10px; }
+.brand-mark { color: var(--accent); font-size: 18px; line-height: 1; }
+.brand-name { font-weight: 800; letter-spacing: 0.22em; font-size: 15px; color: #eef4ff; }
+.brand-sub {
+  color: var(--dim);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.topbar-right { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.pill {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  border: 1px solid var(--line-2);
+  color: var(--dim);
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: var(--bg-1);
+  white-space: nowrap;
+}
+.pill .asof { color: var(--text); }
+.pill-demo { color: var(--hot); border-color: rgba(255, 180, 58, 0.45); }
+.pill-engine { color: var(--accent-2); border-color: rgba(79, 156, 255, 0.4); }
+
+/* ---- layout ---- */
+main {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 20px 22px 40px;
+  display: grid;
+  gap: 20px;
+}
+
+.panel {
+  background: linear-gradient(180deg, var(--bg-1), var(--bg-0));
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.025);
+}
+.panel h2 {
+  margin: 0 0 14px;
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #e7eefb;
+  font-weight: 700;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.h2-sub {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--dim);
+  letter-spacing: 0.05em;
+  text-transform: none;
+  font-weight: 400;
+}
+
+.muted { color: var(--dim); font-size: 12px; font-family: var(--mono); padding: 8px 0; }
+.muted code { color: var(--accent); font-size: 0.95em; }
+code { font-family: var(--mono); }
+
+/* ---- KPI row ---- */
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.kpi {
+  background: var(--bg-1);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+.kpi-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  color: var(--dim);
+  text-transform: uppercase;
+}
+.kpi-value {
+  font-size: 22px;
+  font-weight: 800;
+  margin-top: 4px;
+  color: #eef4ff;
+  font-variant-numeric: tabular-nums;
+  font-family: var(--mono);
+}
+.kpi-value.pos { color: var(--accent); }
+.kpi-value.neg { color: var(--neg); }
+.kpi-value.hot { color: var(--hot); }
+
+/* ---- market-pulse layout: KPIs + bars share the top panel ---- */
+.grid2 {
+  display: grid;
+  grid-template-columns: 360px minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .grid2 { grid-template-columns: 1fr; }
+}
+
+/* heat strip */
+.heat-strip {
+  display: flex;
+  gap: 6px;
+  margin: 14px 0 6px;
+}
+.heat-cell {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--bg-1);
+  padding: 8px 8px 6px;
+  cursor: default;
+  transition: transform 0.15s ease;
+}
+.heat-cell:hover { transform: translateY(-1px); }
+.heat-cell .hc-name {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  color: var(--dim);
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.heat-cell .hc-score {
+  font-family: var(--mono);
+  font-size: 15px;
+  font-weight: 700;
+  margin-top: 2px;
+  font-variant-numeric: tabular-nums;
+}
+.heat-cell .hc-bar {
+  height: 4px;
+  border-radius: 2px;
+  background: #14202c;
+  margin-top: 6px;
+  overflow: hidden;
+}
+.heat-cell .hc-bar i {
+  display: block;
+  height: 100%;
+  border-radius: 2px;
+}
+.heat-cell[data-t="hot"] .hc-score { color: var(--hot); }
+.heat-cell[data-t="hot"] .hc-bar i { background: linear-gradient(90deg, #7a4a10, var(--hot)); }
+.heat-cell[data-t="warm"] .hc-score { color: var(--accent); }
+.heat-cell[data-t="warm"] .hc-bar i { background: linear-gradient(90deg, #1c5c3a, var(--accent)); }
+.heat-cell[data-t="cold"] .hc-score { color: var(--cold); }
+.heat-cell[data-t="cold"] .hc-bar i { background: linear-gradient(90deg, #26394f, var(--cold)); }
+.heat-cell[data-t="neg"] .hc-score { color: var(--neg); }
+.heat-cell[data-t="neg"] .hc-bar i { background: linear-gradient(90deg, #611b24, var(--neg)); }
+
+/* pulse feed tables (power / geo / filings) — compact stacked tables in
+   the pulse panel; the 2nd and 3rd sit tighter under the first. */
+.pulse-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.pulse-table th {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dim-2);
+  text-align: left;
+  padding: 4px 8px;
+  border-bottom: 1px solid var(--line);
+}
+.pulse-table td {
+  padding: 3px 8px;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: 11px;
+}
+.pulse-table td.num { text-align: right; font-variant-numeric: tabular-nums; }
+.pulse-table td.tk { color: var(--accent-2); }
+.pulse-table td.status-ok { color: var(--accent); }
+.pulse-table td.neg { color: var(--neg); }
+#pulse-rows .uni-col + .uni-col { margin-top: 10px; }
+#pulse-rows .uni-col h3 {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--dim);
+  margin: 0 0 4px;
+}
+#universe-rows .uni-col h3 {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--text);
+  margin: 4px 0 6px;
+}
+#universe-rows .uni-table {
+  width: 100%; border-collapse: collapse;
+}
+#universe-rows .uni-table th {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--dim-2); text-align: left;
+  padding: 4px 8px; border-bottom: 1px solid var(--line);
+}
+#universe-rows .uni-table td {
+  font-family: var(--mono); font-size: 11px; padding: 3px 8px;
+  border-bottom: 1px solid var(--line);
+}
+#universe-rows .uni-table td.tk { color: var(--accent-2); }
+#universe-rows .uni-table td.num { text-align: right; }
+#universe-rows .uni-table td.status-ok { color: var(--accent); }
+#universe-rows .uni-table td.status-miss { color: var(--dim-2); font-style: italic; }
+#universe-rows .uni-table td.neg { color: var(--neg); }
+
+/* divergences table */
+.div-table { width: 100%; border-collapse: collapse; }
+.div-table th {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--dim);
+  text-align: left;
+  padding: 4px 8px;
+  border-bottom: 1px solid var(--line-2);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.div-table td {
+  padding: 7px 8px;
+  border-bottom: 1px solid rgba(29, 43, 58, 0.55);
+  font-family: var(--mono);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.div-table td.tk { color: var(--accent-2); }
+.div-table td .pair { color: var(--dim); }
+.div-table td .gap { color: var(--text); }
+.div-table tr.click { cursor: pointer; }
+.div-table tr.click:hover td { background: rgba(53, 224, 138, 0.05); }
+.div-table td.num { text-align: right; }
+
+/* z value coloring */
+.z-pos { color: var(--accent); }
+.z-neg { color: var(--neg); }
+.z-flat { color: var(--dim); }
+
+/* ---- radar bars (compact per-company list in top panel) ---- */
+.bars { display: grid; gap: 6px; }
+.bar-row {
+  display: grid;
+  grid-template-columns: 148px 1fr 66px;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 7px;
+  border: 1px solid transparent;
+}
+.bar-row:hover, .bar-row.active {
+  background: rgba(53, 224, 138, 0.05);
+  border-color: var(--line-2);
+}
+.bar-label { font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bar-label .tk {
+  font-family: var(--mono);
+  color: var(--dim);
+  font-size: 10px;
+  display: block;
+}
+.bar-track {
+  height: 9px;
+  background: #0b0f16;
+  border-radius: 99px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  position: relative;
+}
+.bar-fill { height: 100%; border-radius: 99px; }
+.bar-fill.hot { background: linear-gradient(90deg, var(--accent), var(--hot)); }
+.bar-fill.warm { background: linear-gradient(90deg, #2f8a5f, var(--accent)); }
+.bar-fill.cold { background: linear-gradient(90deg, #2c3d52, var(--cold)); }
+.bar-val {
+  font-family: var(--mono);
+  font-size: 12px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.bar-val .flag {
+  display: block;
+  color: var(--hot);
+  font-size: 9px;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ---- company strip (left rail of detail view) ---- */
+.detail-layout {
+  display: grid;
+  grid-template-columns: 210px minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+@media (max-width: 760px) {
+  .detail-layout { grid-template-columns: 1fr; }
+  .company-strip { max-height: 180px; overflow-y: auto; }
+}
+.company-strip h3, .detail-panel h3 {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: var(--dim);
+  text-transform: uppercase;
+  margin: 0 0 8px;
+}
+.co-list { display: grid; gap: 4px; }
+.co-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  padding: 7px 9px;
+  color: var(--text);
+  font-family: inherit;
+  cursor: pointer;
+}
+.co-item:hover { background: var(--bg-2); }
+.co-item.active {
+  background: var(--bg-2);
+  border-color: rgba(53, 224, 138, 0.35);
+}
+.co-item .co-tk {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent-2);
+  min-width: 76px;
+}
+.co-item .co-pulse {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 800;
+  margin-left: auto;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- company detail ---- */
+.detail-panel .head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.detail-panel .head .cname { font-size: 20px; font-weight: 800; letter-spacing: 0.01em; }
+.detail-panel .head .ctk {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--dim);
+}
+.detail-panel .head .cmeta {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--dim-2);
+  letter-spacing: 0.06em;
+}
+
+/* gauge */
+.gauge-wrap { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+.gauge { position: relative; width: 190px; height: 100px; flex: 0 0 auto; }
+.gauge svg { display: block; }
+.gauge .gauge-num {
+  position: absolute;
+  left: 0; right: 0; bottom: 4px;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 30px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+.gauge .gauge-zone {
+  position: absolute;
+  left: 0; right: 0; bottom: -14px;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: var(--dim);
+}
+
+/* sentiment */
+.sent {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 220px;
+}
+.sent-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--dim);
+  text-transform: uppercase;
+}
+.sent-line {
+  font-size: 13px;
+  color: var(--text);
+  border-left: 2px solid var(--line-2);
+  padding: 2px 0 2px 10px;
+  margin: 0;
+}
+.sent-line strong { color: #eef4ff; }
+
+/* chips */
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  padding: 3px 9px;
+  border-radius: 999px;
+  border: 1px solid var(--line-2);
+  color: var(--dim);
+  background: var(--bg-1);
+  white-space: nowrap;
+}
+.chip.up { color: var(--accent); border-color: rgba(53, 224, 138, 0.4); }
+.chip.down { color: var(--neg); border-color: rgba(255, 93, 108, 0.4); }
+.chip.flat { color: var(--cold); border-color: rgba(95, 127, 166, 0.4); }
+.chip.event { color: var(--hot); border-color: rgba(255, 180, 58, 0.5); background: rgba(255, 180, 58, 0.07); }
+.chip.miss { color: var(--dim-2); font-style: italic; border-style: dashed; }
+
+/* channel cards */
+.channels {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+  gap: 10px;
+  margin-top: 16px;
+}
+.ch-card {
+  background: var(--bg-1);
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  padding: 12px;
+}
+.ch-card .ch-name {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--accent-2);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+.ch-card .ch-val {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+}
+.ch-card .ch-cur { font-size: 18px; font-weight: 800; color: #eef4ff; }
+.ch-card .ch-prior { font-size: 11px; color: var(--dim); }
+.ch-card .ch-delta { margin-left: auto; font-size: 12px; font-weight: 700; }
+.ch-card .ch-delta.pos { color: var(--accent); }
+.ch-card .ch-delta.neg { color: var(--neg); }
+.ch-card .ch-delta.flat { color: var(--dim); }
+.spark {
+  width: 100%;
+  height: 34px;
+  margin: 8px 0 6px;
+  display: block;
+}
+.spark polyline {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.spark .spark-base { stroke: var(--line-2); stroke-width: 1; }
+.spark[data-dir="down"] polyline.main { stroke: var(--neg); }
+.spark[data-dir="flat"] polyline.main { stroke: var(--cold); }
+
+.strength {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--dim);
+  letter-spacing: 0.1em;
+}
+.strength .track {
+  flex: 1;
+  height: 5px;
+  border-radius: 3px;
+  background: #14202c;
+  overflow: hidden;
+}
+.strength .fill { height: 100%; border-radius: 3px; }
+.ch-card .ch-z {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--dim);
+  margin-top: 6px;
+}
+
+/* brief */
+.brief-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 18px; }
+.brief-box {
+  background: var(--bg-1);
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  padding: 14px 16px;
+}
+.brief-box h4 {
+  margin: 0 0 8px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: var(--dim);
+  text-transform: uppercase;
+}
+.brief-box p { margin: 0 0 8px; font-size: 13px; color: var(--text); }
+.brief-box p:last-child { margin-bottom: 0; }
+.brief-box ul { margin: 0; padding-left: 18px; font-size: 12.5px; color: var(--text); }
+.brief-box li { margin: 4px 0; }
+.brief-box strong { color: #eef4ff; }
+.brief-box .flagline { color: var(--hot); font-family: var(--mono); font-size: 11.5px; }
+.brief-box code { color: var(--accent); font-size: 0.9em; }
+
+/* confidence + quality */
+.conf { display: flex; align-items: center; gap: 10px; }
+.conf .track {
+  flex: 1;
+  height: 6px;
+  border-radius: 3px;
+  background: #14202c;
+  overflow: hidden;
+}
+.conf .fill { height: 100%; background: linear-gradient(90deg, #2f8a5f, var(--accent)); border-radius: 3px; }
+.conf .pct { font-family: var(--mono); font-size: 11px; color: var(--text); min-width: 42px; text-align: right; }
+.qnote {
+  font-size: 11px;
+  color: var(--dim);
+  font-family: var(--mono);
+  margin-top: 8px;
+}
+
+/* foot */
+.foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--line);
+  margin-top: 26px;
+  padding: 14px 22px 26px;
+  color: var(--dim-2);
+  font-size: 11px;
+  font-family: var(--mono);
+  max-width: 1240px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.foot a { color: var(--accent-2); text-decoration: none; }
+.foot a:hover { text-decoration: underline; }
+
+@media (max-width: 760px) {
+  .bar-row { grid-template-columns: 110px 1fr 54px; }
+  .heat-strip { flex-wrap: wrap; }
+  .heat-cell { flex: 1 1 120px; }
+}
+
+/* reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; scroll-behavior: auto !important; }
+}
+
+</style>
+</head>
+<body>
+<div id="fallback-banner" class="banner" hidden>
+  This view is running on the <span class="ok">embedded demo</span> dataset
+  (fetch of <code>data/radar.json</code> was unavailable).
+  Open <code>build/build.html</code> for the full offline build —
+  make it with <code>npm run build-offline</code> (or
+  <code>node server.js</code> → http://localhost:3000 for live local data).
+</div>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark">◈</span>
+    <span class="brand-name">PRISM&nbsp;SENTINEL</span>
+    <span class="brand-sub">pre-results pulse radar · Indian public markets</span>
+  </div>
+  <div class="topbar-right">
+    <span class="pill" id="asof-pill">data as of: —</span>
+    <span class="pill pill-engine" id="engine-pill">engine: —</span>
+    <span class="pill pill-demo">DEMO data — not investment advice</span>
+  </div>
+</header>
+
+<main>
+  <!-- ============ MARKET PULSE (aggregate) ============ -->
+  <section id="panel-market" class="panel">
+    <h2>Market Pulse
+      <span class="h2-sub">composite 0–100 · filings · power · geo · hiring · supply chain</span>
+    </h2>
+
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-label">companies</div><div class="kpi-value" id="kpi-count">–</div></div>
+      <div class="kpi"><div class="kpi-label">avg pulse</div><div class="kpi-value" id="kpi-avg">–</div></div>
+      <div class="kpi"><div class="kpi-label">positive</div><div class="kpi-value pos" id="kpi-pos">–</div></div>
+      <div class="kpi"><div class="kpi-label">negative</div><div class="kpi-value neg" id="kpi-neg">–</div></div>
+      <div class="kpi"><div class="kpi-label">top momentum</div><div class="kpi-value" id="kpi-top">–</div></div>
+    </div>
+
+    <div id="heat-strip" class="heat-strip" title="sector heat · top movers by pulse"></div>
+
+    <h3 class="tbl-sub">top divergences <span class="h2-sub">rank · company · channel pair · z · direction</span></h3>
+    <table class="div-table" id="div-table">
+      <thead>
+        <tr>
+          <th style="width:34px">#</th>
+          <th>company</th>
+          <th>channel pair</th>
+          <th class="num">gap</th>
+          <th>reading</th>
+        </tr>
+      </thead>
+      <tbody id="div-body"></tbody>
+    </table>
+  </section>
+
+  <!-- ============ COMPANY DETAIL ============ -->
+  <section id="panel-company" class="panel detail-layout">
+    <div class="company-strip">
+      <h3>On the radar <span id="company-strip-meta" class="h2-sub"></span></h3>
+      <div id="company-strip" class="co-list"></div>
+    </div>
+
+    <div id="detail-panel" class="detail-panel">
+      <div class="muted" id="detail-empty">No radar data yet — run
+        <code>node engine/index.js radar</code> (or <code>npm run radar</code>) then reload.</div>
+
+      <div id="detail-body" hidden>
+        <div class="head">
+          <span class="cname" id="d-name">—</span>
+          <span class="ctk" id="d-ticker"></span>
+          <span class="cmeta" id="d-sector"></span>
+        </div>
+
+        <div class="gauge-wrap">
+          <div class="gauge" id="d-gauge">
+            <!-- gauge SVG injected here -->
+            <div class="gauge-num" id="d-gauge-num">—</div>
+            <div class="gauge-zone" id="d-gauge-zone">—</div>
+          </div>
+
+          <div class="sent">
+            <span class="sent-label">sentiment</span>
+            <p class="sent-line" id="d-sentiment">—</p>
+            <div class="chips" id="d-flags"></div>
+          </div>
+        </div>
+
+        <div class="chips" style="margin-top:14px" id="d-events"></div>
+
+        <div class="channels" id="d-channels"></div>
+
+        <div class="brief-grid">
+          <div class="brief-box" id="d-brief">
+            <h4>why this matters</h4>
+            <div id="d-brief-body"></div>
+          </div>
+          <div class="brief-box" id="d-quality">
+            <h4>data quality &amp; confidence</h4>
+            <div id="d-quality-body"></div>
+          </div>
+          <div class="brief-box" id="d-sources">
+            <h4>sources</h4>
+            <ul id="d-sources-body"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ UNIVERSE COVERAGE ============ -->
+  <section id="panel-universe" class="panel">
+    <h2>Universe Coverage
+      <span class="h2-sub">nifty50 / bse500 placeholder pulse</span>
+    </h2>
+    <div id="universe-rows" class="universe-rows">
+      <div class="muted">No universe data — run <code>node engine/index.js all</code> then reload.</div>
+    </div>
+  </section>
+
+  <!-- ============ PULSE (power feed) ============ -->
+  <section id="panel-pulse" class="panel">
+    <h2>Power-Feed Pulse
+      <span class="h2-sub">electricity feed · MWh · z vs trailing window</span>
+    </h2>
+    <div id="pulse-rows" class="universe-rows">
+      <div class="muted">No pulse data — run <code>npm run pulse</code> (python3 or node fallback) then reload.</div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <span>PRISM Labs take-home · fully local · zero dependencies · demo synthetic data · not investment advice</span>
+  <span>live plug-ins (documented, not called): SEBI RSS · CERC/MoP power · GDS/CIN · job-board &amp; consented-geo composites</span>
+</footer>
+
+<script>
+/**
+ * PRISM SENTINEL — UI controller (vanilla JS, zero dependencies).
+ *
+ * Data resolution order:
+ *   1. window.__INLINED_DATA__  (injected by scripts/inline.js into build/build.html)
+ *   2. fetch('data/*.json')     (served over http; blocked under file:// in most browsers)
+ *   3. embedded __INLINED_DEMO__ copy baked into index.html, so a straight
+ *      file:// double-click still renders something useful.
+ *
+ * If (2) fails and we fell back to the demo, we show a banner pointing the
+ * user to build/build.html (`npm run build-offline`).
+ *
+ * All rendering is defensive: every dataset is optional; malformed JSON or
+ * missing fields degrade to hints instead of exceptions. No network, no
+ * Date.now(), no Math.random() — output is a pure function of the payload.
+ */
+(function () {
+  'use strict';
+
+  /* ------------------------------------------------------------- helpers */
+  function $(id) { return document.getElementById(id); }
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text !== undefined && text !== null) n.textContent = text;
+    return n;
+  }
+  function clear(node) { while (node.firstChild) node.removeChild(node.firstChild); }
+  function isNum(v) { return typeof v === 'number' && isFinite(v); }
+  function clamp(v, lo, hi) { return Math.min(hi, Math.max(lo, v)); }
+  function esc(s) {
+    return String(s).replace(/[&<>"]/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+    });
+  }
+
+  /** Compact, deterministic number formatting (MWh, counts, ...). */
+  function fmt(v) {
+    if (v === null || v === undefined || !isNum(v)) return '—';
+    var a = Math.abs(v);
+    if (a >= 1e6) return (v / 1e6).toFixed(2) + ' M';
+    if (a >= 1e4) return (v / 1e3).toFixed(1) + ' k';
+    if (a >= 100) return String(Math.round(v));
+    if (a >= 1) return String(Math.round(v * 10) / 10);
+    return String(Math.round(v * 100) / 100);
+  }
+  function fmtPct(v) {
+    if (!isNum(v)) return '—';
+    var s = v > 0 ? '+' : '';
+    return s + (Math.round(v * 10) / 10).toFixed(1) + '%';
+  }
+  function fmtZ(v) {
+    if (!isNum(v)) return 'z n/a';
+    var s = v > 0 ? '+' : v < 0 ? '−' : '';
+    return 'z ' + s + Math.abs(v).toFixed(2);
+  }
+
+  /* ----------------------------------------------------- channel metadata */
+  /** Units + friendly names for the five standard alt-data channels.
+   *  Unknown channel keys fall back gracefully. */
+  var CHANNELS = {
+    'filings':                 { label: 'filings',              unit: 'disclosures',   desc: 'SEBI / exchange filing cadence' },
+    'factory-power':           { label: 'factory-power',        unit: 'MWh',           desc: 'plant & office electricity use' },
+    'employee-geolocations':   { label: 'employee-geolocations', unit: 'on-site count', desc: 'aggregated, consented presence' },
+    'hiring-social':           { label: 'hiring-social',        unit: 'open reqs',     desc: 'job-board + social hiring signal' },
+    'supply-chain':            { label: 'supply-chain',         unit: 'flow index',    desc: 'vendor / logistics momentum' }
+  };
+  function chMeta(key) { return CHANNELS[key] || { label: key, unit: 'idx', desc: key }; }
+
+  /* ------------------------------------------------------------- loading */
+  var DATA = window.__INLINED_DATA__ || null;
+
+  function load(key, url, parse) {
+    return new Promise(function (resolve) {
+      if (DATA && DATA[key] !== undefined) return resolve(DATA[key]);
+      // file://: fetch of local JSON is blocked in Chrome/Safari — skip it,
+      // do NOT attempt: we'd just waste a round-trip that always fails.
+      if (location.protocol === 'file:') return resolve(null);
+      fetch(url)
+        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.text(); })
+        .then(function (t) {
+          try {
+            if (parse === 'json') resolve(JSON.parse(t));
+            else resolve(t);
+          } catch (e) { resolve(null); }
+        })
+        .catch(function () { resolve(null); });
+    });
+  }
+
+  /** Embedded demo so index.html works from a plain double-click too.
+   *  Mirrors data/sample-radar.json (4 companies) — deterministic. */
+  var INLINED_DEMO = {
+    radar: {
+      meta: {
+        source: 'embedded-demo (mirror of data/sample-radar.json)',
+        generated_by: 'index.html (embedded)',
+        deterministic: true,
+        as_of: 'FY2025-q4 (quarter ended 2025-03-31)',
+        note: 'embedded demo copy — run `node engine/index.js radar` for the full dataset'
+      },
+      companies: [
+        demoCo('CGP', 'NSE:CGP', 'Crompton Greaves Consumer Electricals (DEMO)',
+          'Consumer Durables & Appliances', 82, 0.71,
+          ['capacity-expansion', 'order-book-upturn', 'filings-acceleration', 'hiring-surge'], 0.82,
+          [
+            demoCh('filings', 'Corporate Filings', 'disclosures/quarter', 9, 5, 0.9, 78, [3, 4, 4, 5, 9]),
+            demoCh('factory-power', 'Factory Power', 'MWh', 15480, 11200, 0.71, 88, [9800, 10400, 10750, 11200, 15480]),
+            demoCh('employee-geolocations', 'On-site Headcount', 'employees (000s)', 3.94, 3.62, 0.3, 55, [3.4, 3.5, 3.55, 3.62, 3.94]),
+            demoCh('hiring-social', 'Hiring & Social Velocity', 'open roles this quarter', 128, 88, 0.58, 74, [72, 78, 80, 88, 128]),
+            demoCh('supply-chain', 'Supply-Chain Lead-time', 'index (lower = tighter)', 21, 34, -0.52, 41, [38, 36, 35, 34, 21])
+          ],
+          'Pre-results read: **capacity expansion is underway** ahead of an **order-book upturn**; filings, power and hiring are converging while supply-chain lead times tighten.'),
+        demoCo('TTAN', 'NSE:TTAN', 'Titan Ltd (DEMO)',
+          'Consumer Goods & Jewellery', 54, 0.33, [], 0.66,
+          [
+            demoCh('filings', 'Corporate Filings', 'disclosures/quarter', 3, 3, 0.0, 40, [3, 3, 3, 3, 3]),
+            demoCh('factory-power', 'Factory Power', 'MWh', 4620, 4410, 0.1, 60, [4200, 4300, 4380, 4410, 4620]),
+            demoCh('employee-geolocations', 'On-site Headcount', 'employees (000s)', 9.6, 9.4, 0.1, 45, [9.1, 9.2, 9.3, 9.4, 9.6]),
+            demoCh('hiring-social', 'Hiring & Social Velocity', 'open roles this quarter', 41, 38, 0.1, 48, [33, 35, 36, 38, 41]),
+            demoCh('supply-chain', 'Supply-Chain Lead-time', 'index (lower = tighter)', 28, 29, 0.05, 38, [30, 30, 29, 29, 28])
+          ],
+          'Broad-based but modest gains across all five channels; a **steady-state growth** read with no sharp event flag this period.'),
+        demoCo('AIA', 'BSE:AIA', 'AIA Engineering Ltd (DEMO)',
+          'Machinery & Defence', 74, 0.55,
+          ['order-book-upturn', 'capacity-expansion'], 0.78,
+          [
+            demoCh('filings', 'Corporate Filings', 'disclosures/quarter', 7, 5, 0.4, 70, [4, 4, 5, 5, 7]),
+            demoCh('factory-power', 'Factory Power', 'MWh', 8300, 6900, 0.5, 80, [6100, 6400, 6600, 6900, 8300]),
+            demoCh('employee-geolocations', 'On-site Headcount', 'employees (000s)', 2.9, 2.7, 0.4, 58, [2.5, 2.6, 2.65, 2.7, 2.9]),
+            demoCh('hiring-social', 'Hiring & Social Velocity', 'open roles this quarter', 96, 70, 0.42, 72, [58, 61, 64, 70, 96]),
+            demoCh('supply-chain', 'Supply-Chain Lead-time', 'index (lower = tighter)', 41, 33, 0.48, 46, [30, 31, 32, 33, 41])
+          ],
+          'Strong **order-book upturn** signature: supply-chain lead-times lengthening while factory power and hiring both step up. Watch delivery slippage risk.'),
+        demoCo('DLF', 'NSE:DLF', 'DLF Ltd (DEMO)',
+          'Real Estate & REITs', 38, -0.2,
+          ['utilization-softening'], 0.55,
+          [
+            demoCh('filings', 'Corporate Filings', 'disclosures/quarter', 2, 3, -0.2, 30, [3, 3, 3, 3, 2]),
+            demoCh('factory-power', 'Site Power', 'MWh', 5200, 5600, -0.25, 35, [5900, 5800, 5700, 5600, 5200]),
+            demoCh('employee-geolocations', 'Site Headcount', 'employees (000s)', 1.8, 1.95, -0.3, 42, [2.1, 2.05, 2.0, 1.95, 1.8]),
+            demoCh('hiring-social', 'Hiring & Social Velocity', 'open roles this quarter', 12, 19, -0.4, 33, [24, 22, 21, 19, 12]),
+            demoCh('supply-chain', 'Supply-Chain Lead-time', 'index (lower = tighter)', 31, 28, 0.1, 38, [26, 27, 28, 28, 31])
+          ],
+          'A **cooling** read: headcount and power eking down quarter-on-quarter with flat filings — activity is winding down, not a demand signal.')
+      ]
+    }
+  };
+
+  /** One channel record for the embedded demo (array-based channels + history). */
+  function demoCh(key, label, unit, current, prior, z, strength, history) {
+    var chg = isNum(prior) && prior !== 0 ? ((current - prior) / prior) * 100 : null;
+    var direction = chg === null ? 'flat'
+      : chg >= 3 ? 'up' : chg <= -3 ? 'down' : 'flat';
+    return {
+      key: key, label: label, unit: unit,
+      current: current, prior: prior,
+      chg_pct: chg === null ? null : Math.round(chg * 10) / 10,
+      z: z, direction: direction, strength: strength, history: history
+    };
+  }
+  function demoCo(ticker, code, name, sector, pulse, sentiment, eventFlags, confidence,
+                  channels, summary) {
+    return {
+      ticker: ticker, code: code, company: name,
+      sector: sector, market: code ? code.split(':')[0] : null,
+      sentiment: sentiment, sentiment_summary: [summary],
+      event_flags: eventFlags, flags: eventFlags,
+      confidence: confidence,
+      data_quality: { channels_present: channels.length, channels_total: 5,
+                      coverage_pct: channels.length * 20, note: 'demo subset' },
+      channels: Object.keys(channels).reduce(function (acc, i) {
+        var ch = channels[i];
+        acc[ch.key] = ch;
+        return acc;
+      }, {}),
+      pulse: pulse
+    };
+  }
+
+  /* ----------------------------------------------------- top panel: market */
+  function renderRadar(radar) {
+    var counts = { total: 0, pos: 0, neg: 0, pulseSum: 0, withPulse: 0 };
+    var companies = [];
+
+    if (!radar || !Array.isArray(radar.companies) || radar.companies.length === 0) {
+      clear($('div-body'));
+      $('div-body').appendChild(el('tr', null, mkTd('muted',
+        'no radar data yet — run "node engine/index.js radar" (or npm run radar)', 5)));
+      clear($('heat-strip'));
+      $('detail-empty').hidden = false;
+      $('detail-body').hidden = true;
+      setPills(radar && radar.meta ? radar.meta.source : null,
+               radar && radar.meta ? radar.meta.generated_by : null, false,
+               radar && radar.meta ? radar.meta.as_of : null);
+      fillKpis(counts, null);
+      renderStripAll([]);
+      return;
+    }
+
+    radar.companies.forEach(function (c) {
+      companies.push(c);
+      counts.total += 1;
+      if (isNum(c.pulse)) { counts.pulseSum += c.pulse; counts.withPulse += 1; }
+      if (c.sentiment === 'positive') counts.pos += 1;
+      else if (c.sentiment === 'negative') counts.neg += 1;
+    });
+
+    setPills((radar.meta && radar.meta.source) || null,
+             (radar.meta && radar.meta.generated_by) || null, false,
+             (radar.meta && radar.meta.as_of) || null);
+    fillKpis(counts, companies[0]);
+    renderHeat(companies);
+    renderDivergences(companies);
+
+    $('detail-empty').hidden = true;
+    $('detail-body').hidden = false;
+    renderStripAll(companies);
+    selectCompany(companies[0], null);
+  }
+
+  /** Header pills: "data as of" + engine used; demo suffix when embedded.
+   *  Real datasets expose meta.as_of; the embedded demo exposes meta.source,
+   *  so fall back to that when as_of is absent. */
+  function setPills(src, engine, isDemo, asOf) {
+    var asof = $('asof-pill'), eng = $('engine-pill');
+    eng.textContent = 'engine: ' + (engine || 'unknown');
+    asof.textContent = 'data as of: ' + (asOf || src || 'unavailable') +
+      (isDemo ? ' · embedded demo' : '');
+  }
+
+  function mkTd(cls, text, colSpan) {
+    var td = el('td', cls, text);
+    if (colSpan) td.colSpan = colSpan;
+    return td;
+  }
+
+  function fillKpis(counts, top) {
+    $('kpi-count').textContent = String(counts.total);
+    // avg pulse over companies that actually carry a pulse (nulls excluded,
+    // else null-pulse rows drag the mean down and misreport the market).
+    $('kpi-avg').textContent = counts.withPulse
+      ? String(Math.round(counts.pulseSum / counts.withPulse)) : '–';
+    $('kpi-pos').textContent = String(counts.pos);
+    $('kpi-neg').textContent = String(counts.neg);
+    $('kpi-top').textContent = top && top.ticker ? top.ticker : '—';
+    $('kpi-top').classList.toggle('hot', !!(top && Array.isArray(top.flags) && top.flags.length));
+  }
+
+  function pulseClass(p) {
+    if (!isNum(p)) return 'cold';
+    if (p >= 70) return 'hot';
+    if (p >= 45) return 'warm';
+    return 'cold';
+  }
+
+  /* --------------------------------------------------- top panel: heat strip
+   *  Sector heat: group companies by sector (c.sector when present, else
+   *  sentiment), score each group by mean pulse → one heat cell per group.
+   */
+  function renderHeat(companies) {
+    var strip = $('heat-strip');
+    clear(strip);
+    if (!companies.length) {
+      strip.appendChild(el('div', 'muted', 'no market data yet'));
+      return;
+    }
+    var groups = {};
+    companies.forEach(function (c) {
+      var key = c.sector || (c.sentiment === 'negative' ? 'negative'
+                : c.sentiment === 'positive' ? 'positive' : 'neutral');
+      if (!groups[key]) groups[key] = { key: key, sum: 0, n: 0 };
+      groups[key].sum += (isNum(c.pulse) ? c.pulse : 0);
+      groups[key].n += 1;
+    });
+    Object.keys(groups).sort(function (a, b) {
+      return (groups[b].sum / groups[b].n) - (groups[a].sum / groups[a].n);
+    }).forEach(function (k) {
+      var g = groups[k];
+      var p = g.n ? Math.round(g.sum / g.n) : 0;
+      var t = g.key === 'negative' ? 'neg' : pulseClass(p);
+      var cell = el('div', 'heat-cell');
+      cell.setAttribute('data-t', t);
+      cell.title = g.key + ' · avg pulse ' + p + '/100 (' + g.n + ' cos)';
+      cell.appendChild(el('div', 'hc-name', g.key));
+      cell.appendChild(el('div', 'hc-score', String(p)));
+      var bar = el('div', 'hc-bar');
+      var i = el('i');
+      i.style.width = clamp(p, 0, 100) + '%';
+      bar.appendChild(i);
+      cell.appendChild(bar);
+      cell.addEventListener('click', function () {
+        // jump to first company in this group
+        companies.forEach(function (other) {
+          var okey = other.sector || (other.sentiment === 'negative' ? 'negative'
+                      : other.sentiment === 'positive' ? 'positive' : 'neutral');
+          if (okey === g.key) selectCompany(other, null);
+        });
+      });
+      strip.appendChild(cell);
+    });
+  }
+
+  /* ------------------------------------------ top panel: divergences table */
+  /** Aggregate every company's divergence records, rank by |gap| desc, take 8. */
+  function renderDivergences(companies) {
+    var body = $('div-body');
+    clear(body);
+    var rows = [];
+    companies.forEach(function (c) {
+      if (!Array.isArray(c.divergences)) return;
+      c.divergences.forEach(function (dv) { rows.push({ c: c, dv: dv }); });
+    });
+    rows.sort(function (a, b) {
+      return Math.abs(b.dv.gap || 0) - Math.abs(a.dv.gap || 0);
+    });
+    rows = rows.slice(0, 8);
+    if (!rows.length) {
+      body.appendChild(el('tr', null,
+        mkTd('muted', 'no divergence records in this dataset', 5)));
+      return;
+    }
+    rows.forEach(function (r, i) {
+      var tr = el('tr', 'click');
+      var pair = Array.isArray(r.dv.pair) ? r.dv.pair : [];
+      tr.appendChild(el('td', 'num', String(i + 1)));
+      var coTd = el('td', 'tk', r.c.ticker || '—');
+      coTd.title = r.c.company || '';
+      tr.appendChild(coTd);
+      tr.appendChild(el('td', null, pair.join(' ⇄ ') || '—'));
+      tr.appendChild(el('td', 'num', isNum(r.dv.gap) ? (r.dv.gap > 0 ? '+' : '') + r.dv.gap : '—'));
+      var reading = el('td', 'pair', r.dv.reading || '');
+      reading.style.fontSize = '11px';
+      tr.appendChild(reading);
+      tr.addEventListener('click', function () {
+        selectCompany(r.c, null);
+        document.getElementById('panel-company')
+          .scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+      body.appendChild(tr);
+    });
+  }
+
+  /* ------------------------------------------------------ company detail */
+  function selectCompany(c, rowEl) {
+    if (!c) return;
+    document.querySelectorAll('.co-item.active').forEach(function (n) { n.classList.remove('active'); });
+    var item = document.querySelector('.co-item[data-tk="' + String(c.ticker || '').replace(/"/g, '') + '"]');
+    if (item) item.classList.add('active');
+    renderDetail(c);
+  }
+
+  /** Company strip (left rail): clickable list of all companies on the radar. */
+  function renderStripAll(companies) {
+    var host = $('company-strip');
+    clear(host);
+    var sorted = companies.slice().sort(function (a, b) {
+      var pa = isNum(a.pulse) ? a.pulse : -1, pb = isNum(b.pulse) ? b.pulse : -1;
+      if (pa !== pb) return pb - pa;
+      return (a.ticker || '').localeCompare(b.ticker || '');
+    });
+    sorted.forEach(function (c) {
+      var b = el('button', 'co-item');
+      b.setAttribute('data-tk', c.ticker || '');
+      b.appendChild(el('span', 'co-tk', c.ticker || '??'));
+      b.appendChild(el('span', 'co-pulse', isNum(c.pulse) ? String(c.pulse) : '—'));
+      b.title = c.company || c.ticker || '';
+      b.addEventListener('click', function () { selectCompany(c, b); });
+      host.appendChild(b);
+    });
+    $('company-strip-meta').textContent =
+      sorted.length + ' companies · sorted by pulse';
+  }
+
+  /** Normalize a company record (either engine shape or sample shape) into
+   *  the internal shape every renderer below consumes. */
+  function normCompany(c) {
+    var pulse = isNum(c.pulse) ? c.pulse : (isNum(c.composite_pulse) ? c.composite_pulse : null);
+    var sentiment = c.sentiment;                 // string in engine data, number in sample data
+    var channels = {};
+    if (Array.isArray(c.channels)) {
+      c.channels.forEach(function (ch) {
+        if (ch && ch.key) channels[ch.key] = ch;
+      });
+    } else if (c.channels && typeof c.channels === 'object') {
+      for (var k in c.channels) if (Object.prototype.hasOwnProperty.call(c.channels, k)) {
+        channels[k] = c.channels[k];
+      }
+    }
+    return {
+      ticker: c.ticker, code: c.code, company: c.company,
+      sector: c.sector, isin: c.isin, market: c.market,
+      data_as_of: c.data_as_of,
+      pulse: pulse, sentiment: sentiment,
+      event_flags: c.event_flags || c.flags || [],
+      divergences: c.divergences || [],
+      confidence: c.confidence,
+      data_quality: c.data_quality,
+      quality_notes: c.quality_notes,
+      sentiment_summary: c.sentiment_summary,
+      channels: channels,
+      // sample/brief shape: an array of {..., markdown, sources, notes}
+      briefs: Array.isArray(c.briefs) ? c.briefs : null,
+      // briefs.json / data/briefs/<T>.json shape: pre-rendered markdown brief
+      brief_text: c.brief_text
+    };
+  }
+
+  function renderDetail(c) {
+    var body = $('detail-body');
+    if (!c) {
+      body.hidden = true;
+      $('detail-empty').hidden = false;
+      return;
+    }
+    var d = normCompany(c);
+    body.hidden = false;
+    $('detail-empty').hidden = true;
+
+    /* masthead */
+    $('d-name').textContent = d.company || d.ticker || '—';
+    $('d-ticker').textContent = d.ticker ? (d.ticker + (d.code ? ' · ' + d.code : '')) : '';
+    $('d-sector').textContent = [d.sector, d.isin, d.market,
+      d.data_as_of ? ('as of ' + d.data_as_of) : null]
+      .filter(Boolean).join('  ·  ');
+
+    /* gauge */
+    drawGauge(d);
+
+    /* sentiment line: prefer a summary sentence; fall back to the raw value
+       (engine data uses strings "positive"/"negative"; sample uses -1..1). */
+    var sentTxt = $('d-sentiment');
+    clear(sentTxt);
+    if (Array.isArray(d.sentiment_summary) && d.sentiment_summary.length) {
+      markdownLite(sentTxt, d.sentiment_summary.join('\n'));
+    } else if (d.sentiment) {
+      if (isNum(d.sentiment)) {
+        var cls = d.sentiment > 0 ? 'pos' : d.sentiment < 0 ? 'neg' : '';
+        sentTxt.appendChild(el('strong', cls,
+          'score ' + (d.sentiment > 0 ? '+' : '') + d.sentiment + ' / 1'));
+      } else {
+        var cls2 = d.sentiment === 'positive' ? 'pos' : d.sentiment === 'negative' ? 'neg' : '';
+        sentTxt.appendChild(el('strong', cls2, String(d.sentiment)));
+      }
+    } else {
+      sentTxt.textContent = '—';
+    }
+
+    /* event-flag chips (one row; both shapes funnel into d.event_flags) */
+    clear($('d-flags'));
+    clear($('d-events'));
+    d.event_flags.forEach(function (f) {
+      var cls = /retrench|softening|down|slow|miss|cool/i.test(String(f)) ? 'down'
+                : /accel|expansion|upturn|surge|capex|capacity/i.test(String(f)) ? 'event'
+                : 'flat';
+      var chip = el('span', 'chip ' + cls, String(f).replace(/-/g, ' '));
+      $('d-events').appendChild(chip);
+    });
+
+    /* channel cards */
+    renderChannels(d);
+
+    /* brief / quality / sources */
+    renderBriefBox(d);
+  }
+
+  /** Semi-circular gauge: SVG arc colored by pulse zone + needle. */
+  function drawGauge(c) {
+    var host = $('d-gauge');
+    // remove any prior SVG (keep the number/zone overlays)
+    var old = host.querySelector('svg');
+    if (old) old.remove();
+
+    var p = isNum(c.pulse) ? clamp(c.pulse, 0, 100) : null;
+    var SVGNS = 'http://www.w3.org/2000/svg';
+    var svg = document.createElementNS(SVGNS, 'svg');
+    svg.setAttribute('viewBox', '0 0 190 100');
+    svg.setAttribute('width', '190');
+    svg.setAttribute('height', '100');
+
+    // zone arcs: 4 bands (cold → hot) drawn behind the value arc
+    var zones = [
+      [0, 44, 'var(--cold)'],
+      [44, 64, '#2f8a5f'],
+      [64, 82, 'var(--accent)'],
+      [82, 100, 'var(--hot)']
+    ];
+    zones.forEach(function (z) {
+      var a = document.createElementNS(SVGNS, 'path');
+      a.setAttribute('d', arcPath(z[0], z[1]));
+      a.setAttribute('stroke', z[2]);
+      a.setAttribute('stroke-width', '10');
+      a.setAttribute('fill', 'none');
+      a.setAttribute('opacity', '0.16');
+      svg.appendChild(a);
+    });
+
+    if (p !== null) {
+      var v = document.createElementNS(SVGNS, 'path');
+      v.setAttribute('d', arcPath(0, p));
+      v.setAttribute('stroke', pulseStroke(p));
+      v.setAttribute('stroke-width', '10');
+      v.setAttribute('stroke-linecap', 'round');
+      v.setAttribute('fill', 'none');
+      svg.appendChild(v);
+    }
+
+    $('d-gauge-num').textContent = p === null ? '—' : String(p);
+    $('d-gauge-num').style.color = p === null ? 'var(--dim)' : pulseStroke(p);
+    $('d-gauge-zone').textContent = p === null ? 'N/A' :
+      (p < 44 ? 'COOL' : p < 64 ? 'MILD' : p < 82 ? 'STRONG' : 'SURGING');
+    // SVG first, overlays (number/zone divs) stay on top via CSS position.
+    // Guarded: some minimal DOM stubs lack insertBefore — fall back to append.
+    if (typeof host.insertBefore === 'function') host.insertBefore(svg, host.firstChild);
+    else host.appendChild(svg);
+  }
+
+  function pulseStroke(p) {
+    if (p < 44) return 'var(--cold)';
+    if (p < 64) return '#2f8a5f';
+    if (p < 82) return 'var(--accent)';
+    return 'var(--hot)';
+  }
+
+  /** Arc path for a 0-100 value mapped onto a 180° semicircle (r=80, cx=95, cy=95). */
+  function arcPath(v0, v1) {
+    var cx = 95, cy = 95, r = 80;
+    function pt(v) {
+      var ang = Math.PI * (1 - v / 100);
+      return (cx + r * Math.cos(ang)).toFixed(2) + ' ' + (cy - r * Math.sin(ang)).toFixed(2);
+    }
+    return 'M ' + pt(v0) + ' A ' + r + ' ' + r + ' 0 0 1 ' + pt(v1);
+  }
+
+  /** Channel cards: current vs prior, delta %, sparkline, z, strength bar. */
+  function renderChannels(c) {
+    var host = $('d-channels');
+    clear(host);
+    var chans = c.channels || {};
+    var keys = Object.keys(chans);
+    if (!keys.length) {
+      host.appendChild(el('div', 'muted', 'no channels reported for this company'));
+      return;
+    }
+    keys.forEach(function (k) {
+      var v = (chans[k] && typeof chans[k] === 'object') ? chans[k] : {};
+      var m = chMeta(k);
+      var card = el('div', 'ch-card');
+
+      var nameRow = el('div', 'ch-name');
+      nameRow.appendChild(document.createTextNode(m.label));
+      var st = el('span', 'chip ' +
+        (v.status === 'missing' ? 'miss' : (v.direction || 'flat')));
+      st.textContent = v.status === 'missing' ? 'no data' : (v.direction || '—');
+      nameRow.appendChild(st);
+      card.appendChild(nameRow);
+      card.title = m.desc || '';
+
+      var valRow = el('div', 'ch-val');
+      valRow.appendChild(el('span', 'ch-cur', fmt(v.current)));
+      valRow.appendChild(el('span', 'ch-prior', 'prev ' + fmt(v.prior) + ' ' + (m.unit || '')));
+      valRow.appendChild(el('span', 'ch-delta ' +
+        (isNum(v.chg_pct) ? (v.chg_pct > 0 ? 'pos' : v.chg_pct < 0 ? 'neg' : 'flat') : 'flat'),
+        fmtPct(v.chg_pct)));
+      card.appendChild(valRow);
+
+      card.appendChild(spark(v));
+
+      var sRow = el('div', 'strength');
+      sRow.appendChild(el('span', null, 'STR'));
+      var track = el('div', 'track');
+      var fill = el('div', 'fill');
+      // two conventions in the repo: engine object-map channels carry 0..1
+      // strength; array-record channels (sample/INLINED_DEMO) carry 0..100.
+      var raw = isNum(v.strength) ? v.strength : 0;
+      var sv = raw > 1 ? clamp(raw, 0, 100) / 100 : clamp(raw, 0, 1);
+      fill.style.width = (sv * 100).toFixed(0) + '%';
+      fill.style.background = 'linear-gradient(90deg,#1c5c3a,var(--accent))';
+      track.appendChild(fill);
+      sRow.appendChild(track);
+      sRow.appendChild(el('span', null, String(Math.round(sv * 100))));
+      card.appendChild(sRow);
+
+      card.appendChild(el('div', 'ch-z',
+        fmtZ(v.z) + ' · ' + (v.period || '—') + ' · ' + m.unit));
+      host.appendChild(card);
+    });
+  }
+
+  /** "Why this matters" narrative + data quality & confidence + sources. */
+  function renderBriefBox(c) {
+    var body = $('d-brief-body');
+    var q = $('d-quality-body');
+    var s = $('d-sources-body');
+    clear(body); clear(q); clear(s);
+
+    /* narrative (markdown-lite: **bold**, *italic*, `code`, "- " bullets, ## headers).
+       Sources of narrative, in order: engine brief_text (briefs.json /
+       data/briefs/<T>.json), briefs[0].markdown|narrative (sample-radar shape),
+       then sentiment_summary (both engine & sample shapes carry it as text). */
+    var md = c.brief_text ||
+      (Array.isArray(c.briefs) && c.briefs.length && c.briefs[0]
+        ? (c.briefs[0].markdown || c.briefs[0].narrative || null) : null) ||
+      (Array.isArray(c.sentiment_summary) ? c.sentiment_summary.join('\n') : null);
+    if (md) {
+      markdownLite(body, md);
+    } else {
+      body.appendChild(el('p', 'muted',
+        'No narrative brief for this company — flags and divergences below are the raw read.'));
+    }
+
+    /* divergences inside the brief */
+    if (Array.isArray(c.divergences) && c.divergences.length) {
+      body.appendChild(el('h4', null, 'divergences'));
+      c.divergences.forEach(function (dv) {
+        if (!dv || typeof dv !== 'object') return;
+        var pair = Array.isArray(dv.pair) ? dv.pair : [];
+        var p = el('p', 'divergence-line');
+        p.appendChild(el('span', 'pair', pair.join(' ⇄ ')));
+        p.appendChild(document.createTextNode(' · ' + (dv.reading || '')));
+        body.appendChild(p);
+      });
+    }
+
+    /* quality + confidence */
+    if (c.data_quality && typeof c.data_quality === 'object') {
+      var dq = c.data_quality;
+      q.appendChild(el('div', 'qnote',
+        'coverage: ' + (isNum(dq.coverage_pct) ? dq.coverage_pct + '%' : '—') +
+        ' (' + (isNum(dq.channels_present) ? dq.channels_present : '?') + '/' +
+        (isNum(dq.channels_total) ? dq.channels_total : '?') + ' channels) — ' +
+        (dq.note || '')));
+    }
+    if (isNum(c.confidence)) {
+      var bar = el('div', 'conf');
+      var track = el('div', 'track');
+      var fill = el('div', 'fill');
+      fill.style.width = (clamp(c.confidence, 0, 1) * 100).toFixed(0) + '%';
+      track.appendChild(fill);
+      bar.appendChild(track);
+      bar.appendChild(el('span', 'pct', Math.round(c.confidence * 100) + '%'));
+      q.appendChild(el('h4', null, 'confidence'));
+      q.appendChild(bar);
+    }
+
+    /* quality_notes (sample shape: string[]; engine shape: none) */
+    if (Array.isArray(c.quality_notes) && c.quality_notes.length) {
+      var qn = el('h4', null, 'quality notes');
+      q.appendChild(qn);
+      c.quality_notes.forEach(function (note) {
+        q.appendChild(inlineMd(el('p', 'qnote'), String(note)));
+      });
+    }
+
+    /* sources */
+    var sources = c.sources ||
+      (Array.isArray(c.briefs) && c.briefs[0] && Array.isArray(c.briefs[0].sources)
+        ? c.briefs[0].sources : null) ||
+      ['DEMO — synthetic alternative-data stand-ins (see engine/index.js header)'];
+    if (!Array.isArray(sources)) sources = [String(sources)];
+    sources.forEach(function (src) {
+      s.appendChild(el('li', null, String(src)));
+    });
+  }
+
+  /** Minimal, safe markdown-lite renderer: **b**, *i*, `code`, "- " lists,
+   *  "## " subheads. Everything else is plain text (escaped). */
+  function markdownLite(container, text) {
+    var lines = String(text).split('\n');
+    var listOpen = false;
+    lines.forEach(function (line) {
+      var t = line.trim();
+      if (!t) { return; }
+      if (t.charAt(0) === '-' || t.charAt(0) === '*') {
+        if (!listOpen) {
+          var ul = el('ul');
+          container.appendChild(ul);
+          listOpen = true;
+          container._list = ul;
+        }
+        container._list.appendChild(inlineMd(el('li'), t.replace(/^[-*]\s*/, '')));
+        return;
+      }
+      if (listOpen) { listOpen = false; container._list = null; }
+      if (t.indexOf('## ') === 0) {
+        container.appendChild(el('h4', null, t.slice(3)));
+      } else {
+        container.appendChild(inlineMd(el('p'), t));
+      }
+    });
+  }
+
+  /** Inline markdown (**bold**, *italic*, `code`) appended as safe nodes. */
+  function inlineMd(node, text) {
+    var re = /(\*\*[^*]+\*\*|\*[^*]+\*|`[^`]+`)/g;
+    var last = 0, m;
+    while ((m = re.exec(text))) {
+      if (m.index > last) node.appendChild(document.createTextNode(text.slice(last, m.index)));
+      var tok = m[0];
+      if (tok.charAt(0) === '*') {
+        node.appendChild(el(tok.slice(0, 2) === '**' ? 'strong' : 'em', null,
+          tok.slice(2, -2)));
+      } else {
+        node.appendChild(el('code', null, tok.slice(1, -1)));
+      }
+      last = m.index + tok.length;
+    }
+    if (last < text.length) node.appendChild(document.createTextNode(text.slice(last)));
+    return node;
+  }
+
+  /** Sparkline: uses the channel's real history[] series when present
+   *  (array-of-channel-records shape, e.g. data/sample-radar.json / embedded
+   *  demo), otherwise 2-point prior→current with deterministic interpolated
+   *  midpoints (engine object-map shape). Never throws on missing values. */
+  function spark(v) {
+    var W = 120, H = 34, pad = 4;
+    var pts = (Array.isArray(v.history) ? v.history : [])
+      .filter(isNum).slice(0, 32);
+    if (pts.length < 2) {
+      var a = isNum(v.prior) ? v.prior : 0;
+      var b = isNum(v.current) ? v.current : 0;
+      // deterministic midpoints: linear ramp + fixed sine wobble (no randomness)
+      var n = 6;
+      pts = [];
+      for (var i = 0; i < n; i++) {
+        var t = i / (n - 1);
+        var base = a + (b - a) * t;
+        var wobble = Math.sin(t * Math.PI * 2 + (b >= a ? 0 : 2.1)) * (Math.abs(b - a) * 0.08 + 0.5);
+        pts.push(base + wobble * (i === 0 || i === n - 1 ? 0 : 1));
+      }
+      pts[0] = a; pts[n - 1] = b;
+    }
+    var nn = pts.length;
+    var min = Math.min.apply(null, pts), max = Math.max.apply(null, pts);
+    var span = (max - min) || 1;
+    var X = function (i) { return pad + (W - 2 * pad) * (i / (nn - 1)); };
+    var Y = function (p) { return H - pad - (H - 2 * pad) * ((p - min) / span); };
+    var coords = [];
+    for (var j = 0; j < nn; j++) coords.push(X(j).toFixed(1) + ',' + Y(pts[j]).toFixed(1));
+
+    var dir = v.direction || 'flat';
+    var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    svg.setAttribute('class', 'spark');
+    svg.setAttribute('data-dir', dir);
+    svg.setAttribute('preserveAspectRatio', 'none');
+    var base = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+    base.setAttribute('class', 'spark-base');
+    base.setAttribute('points', '0,' + Y(min).toFixed(1) + ' ' + W + ',' + Y(min).toFixed(1));
+    var line = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+    line.setAttribute('class', 'main');
+    line.setAttribute('points', coords.join(' '));
+    var dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    dot.setAttribute('cx', X(nn - 1).toFixed(1));
+    dot.setAttribute('cy', Y(pts[nn - 1]).toFixed(1));
+    dot.setAttribute('r', '2');
+    dot.setAttribute('class', 'main');
+    svg.appendChild(base); svg.appendChild(line); svg.appendChild(dot);
+    return svg;
+  }
+
+  /* ------------------------------------------------------ universe / pulse */
+  function renderUniverse(doc) {
+    var wrap = $('universe-rows');
+    clear(wrap);
+    if (!doc || !(doc.nifty50 || doc.bse500)) {
+      wrap.appendChild(el('div', 'muted',
+        'No universe data — run "node engine/index.js all" then reload.'));
+      return;
+    }
+    ['nifty50', 'bse500'].forEach(function (key) {
+      var list = Array.isArray(doc[key]) ? doc[key] : [];
+      var col = el('div', 'uni-col');
+      var withPulse = list.filter(function (t) {
+        return t && t.pulse != null;
+      }).length;
+      col.appendChild(el('h3', null, key + ' — ' + withPulse + '/' + list.length + ' with sample pulse'));
+      var table = el('table', 'uni-table');
+      var thead = el('thead');
+      var hr = el('tr');
+      ['ticker', 'company', 'pulse', 'status'].forEach(function (h) {
+        hr.appendChild(el('th', null, h));
+      });
+      thead.appendChild(hr);
+      var tbody = el('tbody');
+      list.forEach(function (t) {
+        if (!t || typeof t !== 'object') return;
+        var tr = el('tr');
+        tr.appendChild(el('td', 'tk', t.ticker || '—'));
+        tr.appendChild(el('td', null, t.company || t.ticker || '—'));
+        var ptd = el('td', 'num', t.pulse != null ? String(t.pulse) : 'null');
+        tr.appendChild(ptd);
+        var ok = t.data === 'sample-signals' || t.data === 'ok';
+        tr.appendChild(el('td', ok ? 'status-ok' : 'status-miss', t.data || '—'));
+        tbody.appendChild(tr);
+      });
+      table.appendChild(thead); table.appendChild(tbody);
+      col.appendChild(table);
+      wrap.appendChild(col);
+    });
+  }
+
+  /* One compact pulse table (title row + 6-col body). Feeds: power=MWh,
+   * geo=headcount, filings=disclosure counts. All share the engine schema. */
+  function pulseTable(doc, title) {
+    var col = el('div', 'uni-col');
+    var eng = (doc.meta && doc.meta.engine) || 'pulse_engine';
+    col.appendChild(el('h3', null, title + ' · z vs trailing window · engine: ' + eng));
+    var table = el('table', 'uni-table pulse-table');
+    var thead = el('thead');
+    var hr = el('tr');
+    ['ticker', 'period', 'value', 'prior', 'z', 'trend'].forEach(function (h) {
+      hr.appendChild(el('th', null, h));
+    });
+    thead.appendChild(hr);
+    var tbody = el('tbody');
+    doc.companies.forEach(function (c) {
+      if (!c || typeof c !== 'object') return;
+      var tr = el('tr');
+      tr.appendChild(el('td', 'tk', c.ticker || '—'));
+      tr.appendChild(el('td', null, c.period || '—'));
+      tr.appendChild(el('td', 'num', isNum(c.value) ? String(c.value) : 'null'));
+      tr.appendChild(el('td', 'num', c.prior != null ? String(c.prior) : 'null'));
+      tr.appendChild(el('td', 'num', isNum(c.z) ? c.z.toFixed(2) : 'null'));
+      var cls = c.trend === 'up' ? 'status-ok' : c.trend === 'down' ? 'neg' : '';
+      tr.appendChild(el('td', cls || null, c.trend || '—'));
+      tbody.appendChild(tr);
+    });
+    table.appendChild(thead); table.appendChild(tbody);
+    col.appendChild(table);
+    return col;
+  }
+
+  function renderPulse() {
+    var wrap = $('pulse-rows');
+    clear(wrap);
+    var feeds = [
+      { doc: PULSE_DOCS.pulse, title: 'power feed · MWh' },
+      { doc: PULSE_DOCS.pulseGeo, title: 'geo feed · headcount' },
+      { doc: PULSE_DOCS.pulseFilings, title: 'filings feed · disclosures' }
+    ].filter(function (f) {
+      return f.doc && Array.isArray(f.doc.companies) && f.doc.companies.length > 0;
+    });
+    if (feeds.length === 0) {
+      wrap.appendChild(el('div', 'muted',
+        'No pulse data — run "npm run pulse" (python3, or node fallback) then reload.'));
+      return;
+    }
+    feeds.forEach(function (f) { wrap.appendChild(pulseTable(f.doc, f.title)); });
+  }
+
+  var PULSE_DOCS = {};
+  function attachPulse(key, doc) { PULSE_DOCS[key] = doc; }
+
+  /* ----------------------------------------------------------------- boot */
+  function boot() {
+    load('radar', 'data/radar.json', 'json').then(function (radar) {
+      var used = radar || null;
+      if (!used) {
+        // fall back to the embedded demo so file:// is never blank;
+        // surface the banner (index.html #fallback-banner) when it exists.
+        used = INLINED_DEMO.radar;
+        var banner = $('fallback-banner');
+        if (banner && 'hidden' in banner) banner.hidden = false;
+      }
+      renderRadar(used);
+      renderStripAll((used && used.companies) || []);
+    });
+    load('universe', 'data/radar.universe.json', 'json').then(renderUniverse);
+    // pulse feeds load independently; renderPulse() re-renders the panel each
+    // time one lands so a partially-arrived set still shows what's present.
+    ['pulse', 'pulseGeo', 'pulseFilings'].forEach(function (key) {
+      load(key, 'data/radar.pulse' + (key === 'pulse' ? '' : key === 'pulseGeo' ? '.geo' : '.filings') + '.json', 'json')
+        .then(function (d) { PULSE_DOCS[key] = d; renderPulse(); });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+})();
+
+</script>
+<script>window.__INLINED_DATA__ = {
+  "radar": {
+    "meta": {
+      "source": "data/sample-signals.csv",
+      "generated_by": "engine/index.js (node, stdlib only)",
+      "deterministic": true,
+      "schema_version": 1,
+      "note": "DEMO synthetic signals; live mode replaces CSV with SEBI/GDS/MoP/job-board/geolocation feed adapters — no network access is required by this engine."
+    },
+    "companies": [
+      {
+        "ticker": "ITC",
+        "company": "ITC Ltd",
+        "pulse": 52,
+        "sentiment": "positive",
+        "flags": [
+          "capacity-expansion-signal",
+          "order-book-upturn",
+          "disclosure-acceleration"
+        ],
+        "divergences": [
+          {
+            "pair": [
+              "filings",
+              "employee-geolocations"
+            ],
+            "gap": 0.7,
+            "reading": "strongest signal (filings, up) vs weakest (employee-geolocations, flat) — asymmetric momentum across channels"
+          }
+        ],
+        "confidence": 0.7,
+        "data_quality": {
+          "channels_present": 5,
+          "channels_total": 5,
+          "coverage_pct": 100,
+          "note": "all five channels present"
+        },
+        "channels": {
+          "filings": {
+            "status": "ok",
+            "period": "q2",
+            "current": 5,
+            "prior": 3,
+            "chg_pct": 66.7,
+            "z": 0.7,
+            "direction": "up",
+            "strength": 0.9
+          },
+          "factory-power": {
+            "status": "ok",
+            "period": "q2",
+            "current": 1930,
+            "prior": 1760,
+            "chg_pct": 9.7,
+            "z": 0.1,
+            "direction": "up",
+            "strength": 0.9
+          },
+          "employee-geolocations": {
+            "status": "ok",
+            "period": "q2",
+            "current": 24110,
+            "prior": 23890,
+            "chg_pct": 0.9,
+            "z": 0,
+            "direction": "flat",
+            "strength": 0.4
+          },
+          "hiring-social": {
+            "status": "ok",
+            "period": "q2",
+            "current": 310,
+            "prior": 205,
+            "chg_pct": 51.2,
+            "z": 0.5,
+            "direction": "up",
+            "strength": 0.8
+          },
+          "supply-chain": {
+            "status": "ok",
+            "period": "q2",
+            "current": 95,
+            "prior": 71,
+            "chg_pct": 33.8,
+            "z": 0.3,
+            "direction": "up",
+            "strength": 0.8
+          }
+        }
+      },
+      {
+        "ticker": "RELIANCE",
+        "company": "Reliance Industries",
+        "pulse": 43,
+        "sentiment": "positive",
+        "flags": [
+          "disclosure-acceleration"
+        ],
+        "divergences": [
+          {
+            "pair": [
+              "filings",
+              "employee-geolocations"
+            ],
+            "gap": 0.5,
+            "reading": "strongest signal (filings, up) vs weakest (employee-geolocations, up) — asymmetric momentum across channels"
+          }
+        ],
+        "confidence": 0.7,
+        "data_quality": {
+          "channels_present": 5,
+          "channels_total": 5,
+          "coverage_pct": 100,
+          "note": "all five channels present"
+        },
+        "channels": {
+          "filings": {
+            "status": "ok",
+            "period": "q2",
+            "current": 6,
+            "prior": 4,
+            "chg_pct": 50,
+            "z": 0.5,
+            "direction": "up",
+            "strength": 0.8
+          },
+          "factory-power": {
+            "status": "ok",
+            "period": "q2",
+            "current": 8810,
+            "prior": 8450,
+            "chg_pct": 4.3,
+            "z": 0,
+            "direction": "up",
+            "strength": 0.9
+          },
+          "employee-geolocations": {
+            "status": "ok",
+            "period": "q2",
+            "current": 12750,
+            "prior": 12600,
+            "chg_pct": 1.2,
+            "z": 0,
+            "direction": "up",
+            "strength": 0.4
+          },
+          "hiring-social": {
+            "status": "ok",
+            "period": "q2",
+            "current": 240,
+            "prior": 190,
+            "chg_pct": 26.3,
+            "z": 0.3,
+            "direction": "up",
+            "strength": 0.7
+          },
+          "supply-chain": {
+            "status": "ok",
+            "period": "q2",
+            "current": 92,
+            "prior": 85,
+            "chg_pct": 8.2,
+            "z": 0.1,
+            "direction": "up",
+            "strength": 0.8
+          }
+        }
+      },
+      {
+        "ticker": "SUNPHARMA",
+        "company": "Sun Pharma",
+        "pulse": 41,
+        "sentiment": "positive",
+        "flags": [
+          "capacity-expansion-signal",
+          "disclosure-acceleration"
+        ],
+        "divergences": [
+          {
+            "pair": [
+              "filings",
+              "employee-geolocations"
+            ],
+            "gap": 1,
+            "reading": "strongest signal (filings, up) vs weakest (employee-geolocations, up) — asymmetric momentum across channels"
+          }
+        ],
+        "confidence": 0.7,
+        "data_quality": {
+          "channels_present": 5,
+          "channels_total": 5,
+          "coverage_pct": 100,
+          "note": "all five channels present"
+        },
+        "channels": {
+          "filings": {
+            "status": "ok",
+            "period": "q2",
+            "current": 4,
+            "prior": 2,
+            "chg_pct": 100,
+            "z": 1,
+            "direction": "up",
+            "strength": 0.7
+          },
+          "factory-power": {
+            "status": "ok",
+            "period": "q2",
+            "current": 1120,
+            "prior": 1010,
+            "chg_pct": 10.9,
+            "z": 0.1,
+            "direction": "up",
+            "strength": 0.8
+          },
+          "employee-geolocations": {
+            "status": "ok",
+            "period": "q2",
+            "current": 6730,
+            "prior": 6580,
+            "chg_pct": 2.3,
+            "z": 0,
+            "direction": "up",
+            "strength": 0.4
+          },
+          "hiring-social": {
+            "status": "ok",
+            "period": "q2",
+            "current": 160,
+            "prior": 135,
+            "chg_pct": 18.5,
+            "z": 0.2,
+            "direction": "up",
+            "strength": 0.6
+          },
+          "supply-chain": {
+            "status": "ok",
+            "period": "q2",
+            "current": 71,
+            "prior": 66,
+            "chg_pct": 7.6,
+            "z": 0.1,
+            "direction": "up",
+            "strength": 0.6
+          }
+        }
+      },
+      {
+        "ticker": "TATAMOTORS",
+        "company": "Tata Motors",
+        "pulse": 41,
+        "sentiment": "positive",
+        "flags": [
+          "capacity-expansion-signal",
+          "order-book-upturn",
+          "disclosure-acceleration"
+        ],
+        "divergences": [
+          {
+            "pair": [
+              "filings",
+              "employee-geolocations"
+            ],
+            "gap": 0.4,
+            "reading": "strongest signal (filings, up) vs weakest (employee-geolocations, up) — asymmetric momentum across channels"
+          }
+        ],
+        "confidence": 0.7,
+        "data_quality": {
+          "channels_present": 5,
+          "channels_total": 5,
+          "coverage_pct": 100,
+          "note": "all five channels present"
+        },
+        "channels": {
+          "filings": {
+            "status": "ok",
+            "period": "q2",
+            "current": 3,
+            "prior": 2,
+            "chg_pct": 50,
+            "z": 0.5,
+            "direction": "up",
+            "strength": 0.6
+          },
+          "factory-power": {
+            "status": "ok",
+            "period": "q2",
+            "current": 3980,
+            "prior": 3560,
+            "chg_pct": 11.8,
+            "z": 0.1,
+            "direction": "up",
+            "strength": 0.9
+          },
+          "employee-geolocations": {
+            "status": "ok",
+            "period": "q2",
+            "current": 9450,
+            "prior": 8800,
+            "chg_pct": 7.4,
+            "z": 0.1,
+            "direction": "up",
+            "strength": 0.7
+          },
+          "hiring-social": {
+            "status": "ok",
+            "period": "q2",
+            "current": 175,
+            "prior": 150,
+            "chg_pct": 16.7,
+            "z": 0.2,
+            "direction": "up",
+            "strength": 0.5
+          },
+          "supply-chain": {
+            "status": "ok",
+            "period": "q2",
+            "current": 88,
+            "prior": 74,
+            "chg_pct": 18.9,
+            "z": 0.2,
+            "direction": "up",
+            "strength": 0.7
+          }
+        }
+      },
+      {
+        "ticker": "INFY",
+        "company": "Infosys",
+        "pulse": 37,
+        "sentiment": "negative",
+        "flags": [
+          "hiring-retrenchment",
+          "disclosure-acceleration"
+        ],
+        "divergences": [
+          {
+            "pair": [
+              "filings",
+              "hiring-social"
+            ],
+            "gap": 1.2,
+            "reading": "strongest signal (filings, up) vs weakest (hiring-social, down) — fundamentals and activity are diverging"
+          }
+        ],
+        "confidence": 0.7,
+        "data_quality": {
+          "channels_present": 5,
+          "channels_total": 5,
+          "coverage_pct": 100,
+          "note": "all five channels present"
+        },
+        "channels": {
+          "filings": {
+            "status": "ok",
+            "period": "q2",
+            "current": 4,
+            "prior": 2,
+            "chg_pct": 100,
+            "z": 1,
+            "direction": "up",
+            "strength": 0.7
+          },
+          "factory-power": {
+            "status": "ok",
+            "period": "q2",
+            "current": 1540,
+            "prior": 1610,
+            "chg_pct": -4.3,
+            "z": 0,
+            "direction": "down",
+            "strength": 0.6
+          },
+          "employee-geolocations": {
+            "status": "ok",
+            "period": "q2",
+            "current": 30110,
+            "prior": 30240,
+            "chg_pct": -0.4,
+            "z": 0,
+            "direction": "flat",
+            "strength": 0.5
+          },
+          "hiring-social": {
+            "status": "ok",
+            "period": "q2",
+            "current": 410,
+            "prior": 520,
+            "chg_pct": -21.2,
+            "z": -0.2,
+            "direction": "down",
+            "strength": 0.7
+          },
+          "supply-chain": {
+            "status": "ok",
+            "period": "q2",
+            "current": 55,
+            "prior": 58,
+            "chg_pct": -5.2,
+            "z": -0.1,
+            "direction": "down",
+            "strength": 0.3
+          }
+        }
+      },
+      {
+        "ticker": "MARUTI",
+        "company": "Maruti Suzuki",
+        "pulse": 37,
+        "sentiment": "positive",
+        "flags": [
+          "order-book-upturn",
+          "disclosure-acceleration"
+        ],
+        "divergences": [
+          {
+            "pair": [
+              "filings",
+              "employee-geolocations"
+            ],
+            "gap": 1,
+            "reading": "strongest signal (filings, up) vs weakest (employee-geolocations, up) — asymmetric momentum across channels"
+          }
+        ],
+        "confidence": 0.7,
+        "data_quality": {
+          "channels_present": 5,
+          "channels_total": 5,
+          "coverage_pct": 100,
+          "note": "all five channels present"
+        },
+        "channels": {
+          "filings": {
+            "status": "ok",
+            "period": "q2",
+            "current": 2,
+            "prior": 1,
+            "chg_pct": 100,
+            "z": 1,
+            "direction": "up",
+            "strength": 0.5
+          },
+          "factory-power": {
+            "status": "ok",
+            "period": "q2",
+            "current": 2130,
+            "prior": 2050,
+            "chg_pct": 3.9,
+            "z": 0,
+            "direction": "up",
+            "strength": 0.7
+          },
+          "employee-geolocations": {
+            "status": "ok",
+            "period": "q2",
+            "current": 5890,
+            "prior": 5670,
+            "chg_pct": 3.9,
+            "z": 0,
+            "direction": "up",
+            "strength": 0.5
+          },
+          "hiring-social": {
+            "status": "ok",
+            "period": "q2",
+            "current": 90,
+            "prior": 72,
+            "chg_pct": 25,
+            "z": 0.3,
+            "direction": "up",
+            "strength": 0.5
+          },
+          "supply-chain": {
+            "status": "ok",
+            "period": "q2",
+            "current": 69,
+            "prior": 61,
+            "chg_pct": 13.1,
+            "z": 0.1,
+            "direction": "up",
+            "strength": 0.7
+          }
+        }
+      },
+      {
+        "ticker": "TITAN",
+        "company": "Titan Ltd",
+        "pulse": 37,
+        "sentiment": "positive",
+        "flags": [
+          "capacity-expansion-signal",
+          "disclosure-acceleration"
+        ],
+        "divergences": [
+          {
+            "pair": [
+              "filings",
+              "employee-geolocations"
+            ],
+            "gap": 0.5,
+            "reading": "strongest signal (filings, up) vs weakest (employee-geolocations, up) — asymmetric momentum across channels"
+          }
+        ],
+        "confidence": 0.7,
+        "data_quality": {
+          "channels_present": 5,
+          "channels_total": 5,
+          "coverage_pct": 100,
+          "note": "all five channels present"
+        },
+        "channels": {
+          "filings": {
+            "status": "ok",
+            "period": "q2",
+            "current": 3,
+            "prior": 2,
+            "chg_pct": 50,
+            "z": 0.5,
+            "direction": "up",
+            "strength": 0.6
+          },
+          "factory-power": {
+            "status": "ok",
+            "period": "q2",
+            "current": 412,
+            "prior": 380,
+            "chg_pct": 8.4,
+            "z": 0.1,
+            "direction": "up",
+            "strength": 0.8
+          },
+          "employee-geolocations": {
+            "status": "ok",
+            "period": "q2",
+            "current": 11840,
+            "prior": 11610,
+            "chg_pct": 2,
+            "z": 0,
+            "direction": "up",
+            "strength": 0.5
+          },
+          "hiring-social": {
+            "status": "ok",
+            "period": "q2",
+            "current": 142,
+            "prior": 121,
+            "chg_pct": 17.4,
+            "z": 0.2,
+            "direction": "up",
+            "strength": 0.7
+          },
+          "supply-chain": {
+            "status": "ok",
+            "period": "q2",
+            "current": 87,
+            "prior": 82,
+            "chg_pct": 6.1,
+            "z": 0.1,
+            "direction": "up",
+            "strength": 0.6
+          }
+        }
+      },
+      {
+        "ticker": "BAJFINANCE",
+        "company": "Bajaj Finance",
+        "pulse": 34,
+        "sentiment": "positive",
+        "flags": [
+          "disclosure-acceleration"
+        ],
+        "divergences": [
+          {
+            "pair": [
+              "filings",
+              "employee-geolocations"
+            ],
+            "gap": 1,
+            "reading": "strongest signal (filings, up) vs weakest (employee-geolocations, up) — asymmetric momentum across channels"
+          }
+        ],
+        "confidence": 0.7,
+        "data_quality": {
+          "channels_present": 5,
+          "channels_total": 5,
+          "coverage_pct": 100,
+          "note": "all five channels present"
+        },
+        "channels": {
+          "filings": {
+            "status": "ok",
+            "period": "q2",
+            "current": 2,
+            "prior": 1,
+            "chg_pct": 100,
+            "z": 1,
+            "direction": "up",
+            "strength": 0.5
+          },
+          "factory-power": {
+            "status": "ok",
+            "period": "q2",
+            "current": 640,
+            "prior": 610,
+            "chg_pct": 4.9,
+            "z": 0,
+            "direction": "up",
+            "strength": 0.6
+          },
+          "employee-geolocations": {
+            "status": "ok",
+            "period": "q2",
+            "current": 4310,
+            "prior": 4150,
+            "chg_pct": 3.9,
+            "z": 0,
+            "direction": "up",
+            "strength": 0.5
+          },
+          "hiring-social": {
+            "status": "ok",
+            "period": "q2",
+            "current": 220,
+            "prior": 180,
+            "chg_pct": 22.2,
+            "z": 0.2,
+            "direction": "up",
+            "strength": 0.7
+          },
+          "supply-chain": {
+            "status": "ok",
+            "period": "q2",
+            "current": 45,
+            "prior": 42,
+            "chg_pct": 7.1,
+            "z": 0.1,
+            "direction": "up",
+            "strength": 0.4
+          }
+        }
+      },
+      {
+        "ticker": "DRREDDY",
+        "company": "Dr Reddys Labs",
+        "pulse": 34,
+        "sentiment": "positive",
+        "flags": [
+          "disclosure-acceleration"
+        ],
+        "divergences": [
+          {
+            "pair": [
+              "filings",
+              "employee-geolocations"
+            ],
+            "gap": 2,
+            "reading": "strongest signal (filings, up) vs weakest (employee-geolocations, flat) — asymmetric momentum across channels"
+          }
+        ],
+        "confidence": 0.7,
+        "data_quality": {
+          "channels_present": 5,
+          "channels_total": 5,
+          "coverage_pct": 100,
+          "note": "all five channels present"
+        },
+        "channels": {
+          "filings": {
+            "status": "ok",
+            "period": "q2",
+            "current": 3,
+            "prior": 1,
+            "chg_pct": 200,
+            "z": 2,
+            "direction": "up",
+            "strength": 0.7
+          },
+          "factory-power": {
+            "status": "ok",
+            "period": "q2",
+            "current": 940,
+            "prior": 910,
+            "chg_pct": 3.3,
+            "z": 0,
+            "direction": "up",
+            "strength": 0.6
+          },
+          "employee-geolocations": {
+            "status": "ok",
+            "period": "q2",
+            "current": 5120,
+            "prior": 5090,
+            "chg_pct": 0.6,
+            "z": 0,
+            "direction": "flat",
+            "strength": 0.3
+          },
+          "hiring-social": {
+            "status": "ok",
+            "period": "q2",
+            "current": 98,
+            "prior": 85,
+            "chg_pct": 15.3,
+            "z": 0.2,
+            "direction": "up",
+            "strength": 0.5
+          },
+          "supply-chain": {
+            "status": "ok",
+            "period": "q2",
+            "current": 60,
+            "prior": 55,
+            "chg_pct": 9.1,
+            "z": 0.1,
+            "direction": "up",
+            "strength": 0.5
+          }
+        }
+      },
+      {
+        "ticker": "HCLTECH",
+        "company": "HCLTech",
+        "pulse": 33,
+        "sentiment": "negative",
+        "flags": [
+          "hiring-retrenchment",
+          "disclosure-acceleration"
+        ],
+        "divergences": [
+          {
+            "pair": [
+              "filings",
+              "hiring-social"
+            ],
+            "gap": 2.2,
+            "reading": "strongest signal (filings, up) vs weakest (hiring-social, down) — fundamentals and activity are diverging"
+          }
+        ],
+        "confidence": 0.7,
+        "data_quality": {
+          "channels_present": 5,
+          "channels_total": 5,
+          "coverage_pct": 100,
+          "note": "all five channels present"
+        },
+        "channels": {
+          "filings": {
+            "status": "ok",
+            "period": "q2",
+            "current": 3,
+            "prior": 1,
+            "chg_pct": 200,
+            "z": 2,
+            "direction": "up",
+            "strength": 0.6
+          },
+          "factory-power": {
+            "status": "ok",
+            "period": "q2",
+            "current": 1180,
+            "prior": 1240,
+            "chg_pct": -4.8,
+            "z": 0,
+            "direction": "down",
+            "strength": 0.5
+          },
+          "employee-geolocations": {
+            "status": "ok",
+            "period": "q2",
+            "current": 21350,
+            "prior": 21480,
+            "chg_pct": -0.6,
+            "z": 0,
+            "direction": "flat",
+            "strength": 0.4
+          },
+          "hiring-social": {
+            "status": "ok",
+            "period": "q2",
+            "current": 180,
+            "prior": 230,
+            "chg_pct": -21.7,
+            "z": -0.2,
+            "direction": "down",
+            "strength": 0.6
+          },
+          "supply-chain": {
+            "status": "ok",
+            "period": "q2",
+            "current": 38,
+            "prior": 42,
+            "chg_pct": -9.5,
+            "z": -0.1,
+            "direction": "down",
+            "strength": 0.4
+          }
+        }
+      },
+      {
+        "ticker": "LT",
+        "company": "Larsen & Toubro",
+        "pulse": 32,
+        "sentiment": "positive",
+        "flags": [
+          "disclosure-acceleration"
+        ],
+        "divergences": [
+          {
+            "pair": [
+              "filings",
+              "employee-geolocations"
+            ],
+            "gap": 0.5,
+            "reading": "strongest signal (filings, up) vs weakest (employee-geolocations, up) — asymmetric momentum across channels"
+          }
+        ],
+        "confidence": 0.7,
+        "data_quality": {
+          "channels_present": 5,
+          "channels_total": 5,
+          "coverage_pct": 100,
+          "note": "all five channels present"
+        },
+        "channels": {
+          "filings": {
+            "status": "ok",
+            "period": "q2",
+            "current": 3,
+            "prior": 2,
+            "chg_pct": 50,
+            "z": 0.5,
+            "direction": "up",
+            "strength": 0.6
+          },
+          "factory-power": {
+            "status": "ok",
+            "period": "q2",
+            "current": 1210,
+            "prior": 1150,
+            "chg_pct": 5.2,
+            "z": 0.1,
+            "direction": "up",
+            "strength": 0.7
+          },
+          "employee-geolocations": {
+            "status": "ok",
+            "period": "q2",
+            "current": 15200,
+            "prior": 14900,
+            "chg_pct": 2,
+            "z": 0,
+            "direction": "up",
+            "strength": 0.4
+          },
+          "hiring-social": {
+            "status": "ok",
+            "period": "q2",
+            "current": 205,
+            "prior": 185,
+            "chg_pct": 10.8,
+            "z": 0.1,
+            "direction": "up",
+            "strength": 0.5
+          },
+          "supply-chain": {
+            "status": "ok",
+            "period": "q2",
+            "current": 81,
+            "prior": 77,
+            "chg_pct": 5.2,
+            "z": 0.1,
+            "direction": "up",
+            "strength": 0.6
+          }
+        }
+      },
+      {
+        "ticker": "WIPRO",
+        "company": "Wipro",
+        "pulse": 32,
+        "sentiment": "negative",
+        "flags": [
+          "hiring-retrenchment",
+          "disclosure-acceleration"
+        ],
+        "divergences": [
+          {
+            "pair": [
+              "filings",
+              "hiring-social"
+            ],
+            "gap": 1.4,
+            "reading": "strongest signal (filings, up) vs weakest (hiring-social, down) — fundamentals and activity are diverging"
+          }
+        ],
+        "confidence": 0.7,
+        "data_quality": {
+          "channels_present": 5,
+          "channels_total": 5,
+          "coverage_pct": 100,
+          "note": "all five channels present"
+        },
+        "channels": {
+          "filings": {
+            "status": "ok",
+            "period": "q2",
+            "current": 2,
+            "prior": 1,
+            "chg_pct": 100,
+            "z": 1,
+            "direction": "up",
+            "strength": 0.4
+          },
+          "factory-power": {
+            "status": "ok",
+            "period": "q2",
+            "current": 890,
+            "prior": 920,
+            "chg_pct": -3.3,
+            "z": 0,
+            "direction": "down",
+            "strength": 0.5
+          },
+          "employee-geolocations": {
+            "status": "ok",
+            "period": "q2",
+            "current": 48700,
+            "prior": 49100,
+            "chg_pct": -0.8,
+            "z": 0,
+            "direction": "flat",
+            "strength": 0.5
+          },
+          "hiring-social": {
+            "status": "ok",
+            "period": "q2",
+            "current": 210,
+            "prior": 340,
+            "chg_pct": -38.2,
+            "z": -0.4,
+            "direction": "down",
+            "strength": 0.7
+          },
+          "supply-chain": {
+            "status": "ok",
+            "period": "q2",
+            "current": 40,
+            "prior": 46,
+            "chg_pct": -13,
+            "z": -0.1,
+            "direction": "down",
+            "strength": 0.4
+          }
+        }
+      },
+      {
+        "ticker": "ADANIPORTS",
+        "company": "Adani Ports & SEZ",
+        "pulse": 30,
+        "sentiment": "positive",
+        "flags": [
+          "disclosure-acceleration"
+        ],
+        "divergences": [
+          {
+            "pair": [
+              "filings",
+              "employee-geolocations"
+            ],
+            "gap": 1,
+            "reading": "strongest signal (filings, up) vs weakest (employee-geolocations, up) — asymmetric momentum across channels"
+          }
+        ],
+        "confidence": 0.7,
+        "data_quality": {
+          "channels_present": 5,
+          "channels_total": 5,
+          "coverage_pct": 100,
+          "note": "all five channels present"
+        },
+        "channels": {
+          "filings": {
+            "status": "ok",
+            "period": "q2",
+            "current": 2,
+            "prior": 1,
+            "chg_pct": 100,
+            "z": 1,
+            "direction": "up",
+            "strength": 0.5
+          },
+          "factory-power": {
+            "status": "ok",
+            "period": "q2",
+            "current": 1470,
+            "prior": 1430,
+            "chg_pct": 2.8,
+            "z": 0,
+            "direction": "up",
+            "strength": 0.6
+          },
+          "employee-geolocations": {
+            "status": "ok",
+            "period": "q2",
+            "current": 3260,
+            "prior": 3210,
+            "chg_pct": 1.6,
+            "z": 0,
+            "direction": "up",
+            "strength": 0.3
+          },
+          "hiring-social": {
+            "status": "ok",
+            "period": "q2",
+            "current": 55,
+            "prior": 48,
+            "chg_pct": 14.6,
+            "z": 0.1,
+            "direction": "up",
+            "strength": 0.4
+          },
+          "supply-chain": {
+            "status": "ok",
+            "period": "q2",
+            "current": 74,
+            "prior": 70,
+            "chg_pct": 5.7,
+            "z": 0.1,
+            "direction": "up",
+            "strength": 0.6
+          }
+        }
+      },
+      {
+        "ticker": "HDFCBANK",
+        "company": "HDFC Bank",
+        "pulse": 27,
+        "sentiment": "positive",
+        "flags": [
+          "disclosure-acceleration"
+        ],
+        "divergences": [
+          {
+            "pair": [
+              "filings",
+              "employee-geolocations"
+            ],
+            "gap": 1,
+            "reading": "strongest signal (filings, up) vs weakest (employee-geolocations, flat) — asymmetric momentum across channels"
+          }
+        ],
+        "confidence": 0.7,
+        "data_quality": {
+          "channels_present": 5,
+          "channels_total": 5,
+          "coverage_pct": 100,
+          "note": "all five channels present"
+        },
+        "channels": {
+          "filings": {
+            "status": "ok",
+            "period": "q2",
+            "current": 2,
+            "prior": 1,
+            "chg_pct": 100,
+            "z": 1,
+            "direction": "up",
+            "strength": 0.5
+          },
+          "factory-power": {
+            "status": "ok",
+            "period": "q2",
+            "current": 2210,
+            "prior": 2190,
+            "chg_pct": 0.9,
+            "z": 0,
+            "direction": "flat",
+            "strength": 0.3
+          },
+          "employee-geolocations": {
+            "status": "ok",
+            "period": "q2",
+            "current": 41020,
+            "prior": 40800,
+            "chg_pct": 0.5,
+            "z": 0,
+            "direction": "flat",
+            "strength": 0.4
+          },
+          "hiring-social": {
+            "status": "ok",
+            "period": "q2",
+            "current": 95,
+            "prior": 88,
+            "chg_pct": 8,
+            "z": 0.1,
+            "direction": "up",
+            "strength": 0.5
+          },
+          "supply-chain": {
+            "status": "ok",
+            "period": "q2",
+            "current": 64,
+            "prior": 60,
+            "chg_pct": 6.7,
+            "z": 0.1,
+            "direction": "up",
+            "strength": 0.4
+          }
+        }
+      },
+      {
+        "ticker": "ASHOKLEY",
+        "company": "Shriram Transport",
+        "pulse": 21,
+        "sentiment": "positive",
+        "flags": [],
+        "divergences": [
+          {
+            "pair": [
+              "hiring-social",
+              "employee-geolocations"
+            ],
+            "gap": 0.2,
+            "reading": "strongest signal (hiring-social, up) vs weakest (employee-geolocations, up) — asymmetric momentum across channels"
+          }
+        ],
+        "confidence": 0.7,
+        "data_quality": {
+          "channels_present": 5,
+          "channels_total": 5,
+          "coverage_pct": 100,
+          "note": "all five channels present"
+        },
+        "channels": {
+          "filings": {
+            "status": "ok",
+            "period": "q2",
+            "current": 1,
+            "prior": 0,
+            "chg_pct": null,
+            "z": null,
+            "direction": "flat",
+            "strength": 0.4
+          },
+          "factory-power": {
+            "status": "ok",
+            "period": "q2",
+            "current": 310,
+            "prior": 290,
+            "chg_pct": 6.9,
+            "z": 0.1,
+            "direction": "up",
+            "strength": 0.5
+          },
+          "employee-geolocations": {
+            "status": "ok",
+            "period": "q2",
+            "current": 1450,
+            "prior": 1430,
+            "chg_pct": 1.4,
+            "z": 0,
+            "direction": "up",
+            "strength": 0.2
+          },
+          "hiring-social": {
+            "status": "ok",
+            "period": "q2",
+            "current": 35,
+            "prior": 30,
+            "chg_pct": 16.7,
+            "z": 0.2,
+            "direction": "up",
+            "strength": 0.4
+          },
+          "supply-chain": {
+            "status": "ok",
+            "period": "q2",
+            "current": 52,
+            "prior": 48,
+            "chg_pct": 8.3,
+            "z": 0.1,
+            "direction": "up",
+            "strength": 0.5
+          }
+        }
+      },
+      {
+        "ticker": "TCS",
+        "company": "Tata Consultancy Services",
+        "pulse": 21,
+        "sentiment": "negative",
+        "flags": [
+          "hiring-retrenchment"
+        ],
+        "divergences": [
+          {
+            "pair": [
+              "filings",
+              "hiring-social"
+            ],
+            "gap": 0.3,
+            "reading": "strongest signal (filings, flat) vs weakest (hiring-social, down) — asymmetric momentum across channels"
+          }
+        ],
+        "confidence": 0.7,
+        "data_quality": {
+          "channels_present": 5,
+          "channels_total": 5,
+          "coverage_pct": 100,
+          "note": "all five channels present"
+        },
+        "channels": {
+          "filings": {
+            "status": "ok",
+            "period": "q2",
+            "current": 1,
+            "prior": 1,
+            "chg_pct": 0,
+            "z": 0,
+            "direction": "flat",
+            "strength": 0.3
+          },
+          "factory-power": {
+            "status": "ok",
+            "period": "q2",
+            "current": 2350,
+            "prior": 2380,
+            "chg_pct": -1.3,
+            "z": 0,
+            "direction": "down",
+            "strength": 0.4
+          },
+          "employee-geolocations": {
+            "status": "ok",
+            "period": "q2",
+            "current": 56400,
+            "prior": 56200,
+            "chg_pct": 0.4,
+            "z": 0,
+            "direction": "flat",
+            "strength": 0.3
+          },
+          "hiring-social": {
+            "status": "ok",
+            "period": "q2",
+            "current": 85,
+            "prior": 120,
+            "chg_pct": -29.2,
+            "z": -0.3,
+            "direction": "down",
+            "strength": 0.6
+          },
+          "supply-chain": {
+            "status": "ok",
+            "period": "q2",
+            "current": 30,
+            "prior": 35,
+            "chg_pct": -14.3,
+            "z": -0.1,
+            "direction": "down",
+            "strength": 0.3
+          }
+        }
+      }
+    ]
+  },
+  "pulse": {
+    "meta": {
+      "source": "demo",
+      "generated_by": "pulse_engine",
+      "engine": "python",
+      "skipped_rows": 0,
+      "tickers": 4,
+      "rows": 20
+    },
+    "companies": [
+      {
+        "ticker": "BAJFINANCE",
+        "company": "Bajaj Finance",
+        "period": "ytd",
+        "value": 801.2,
+        "prior": 744,
+        "z": 2.6271246517358287,
+        "trend": "up"
+      },
+      {
+        "ticker": "INFY",
+        "company": "Infosys",
+        "period": "ytd",
+        "value": 1466.5,
+        "prior": 1488.9,
+        "z": -1.4986677155628818,
+        "trend": "flat"
+      },
+      {
+        "ticker": "TATAMOTORS",
+        "company": "Tata Motors",
+        "period": "ytd",
+        "value": 4590.3,
+        "prior": 4401.7,
+        "z": 1.7600793661401823,
+        "trend": "flat"
+      },
+      {
+        "ticker": "TITAN",
+        "company": "Titan Ltd",
+        "period": "ytd",
+        "value": 455.2,
+        "prior": 431.8,
+        "z": 2.3817973602538096,
+        "trend": "up"
+      }
+    ]
+  },
+  "pulseGeo": {
+    "meta": {
+      "source": "demo",
+      "generated_by": "pulse_engine",
+      "engine": "python",
+      "skipped_rows": 0,
+      "tickers": 3,
+      "rows": 15
+    },
+    "companies": [
+      {
+        "ticker": "HDFCBANK",
+        "company": "HDFC Bank",
+        "period": "ytd",
+        "value": 42.7,
+        "prior": 42.1,
+        "z": 2.589219434353965,
+        "trend": "flat"
+      },
+      {
+        "ticker": "TITAN",
+        "company": "Titan Ltd",
+        "period": "ytd",
+        "value": 13.4,
+        "prior": 12.9,
+        "z": 2.4875929755249717,
+        "trend": "flat"
+      },
+      {
+        "ticker": "WIPRO",
+        "company": "Wipro",
+        "period": "ytd",
+        "value": 46.5,
+        "prior": 47.2,
+        "z": -2.3542496190755458,
+        "trend": "flat"
+      }
+    ]
+  },
+  "pulseFilings": {
+    "meta": {
+      "source": "demo",
+      "generated_by": "pulse_engine",
+      "engine": "python",
+      "skipped_rows": 0,
+      "tickers": 3,
+      "rows": 15
+    },
+    "companies": [
+      {
+        "ticker": "DRREDDY",
+        "company": "Dr Reddys Labs",
+        "period": "ytd",
+        "value": 6,
+        "prior": 5,
+        "z": 1.8593393604027364,
+        "trend": "up"
+      },
+      {
+        "ticker": "RELIANCE",
+        "company": "Reliance Industries",
+        "period": "ytd",
+        "value": 11,
+        "prior": 9,
+        "z": 2.4961508830135313,
+        "trend": "up"
+      },
+      {
+        "ticker": "TATAMOTORS",
+        "company": "Tata Motors",
+        "period": "ytd",
+        "value": 7,
+        "prior": 5,
+        "z": 3.1304951684997055,
+        "trend": "up"
+      }
+    ]
+  },
+  "universe": {
+    "meta": {
+      "generated_by": "engine/index.js",
+      "deterministic": true,
+      "universes": [
+        "nifty50",
+        "bse500"
+      ],
+      "note": "Placeholders only: pulse computed where sample-signals.csv covers a ticker, else null + \"insufficient data\". Live mode would pull SEBI filing RSS, CERC/MoP power data, GDS/CIN registry, job-board and consented geolocation aggregates — listed in the engine header; no network calls are made anywhere in this project."
+    },
+    "nifty50": [
+      {
+        "ticker": "ADANIPORTS",
+        "company": "Adani Ports & Special Economic Zone Corp",
+        "pulse": 30,
+        "sentiment": "positive",
+        "flags": [
+          "disclosure-acceleration"
+        ],
+        "data": "sample-signals"
+      },
+      {
+        "ticker": "APOLLOHOSPITALS",
+        "company": "Apollo Hospitals Enterprise",
+        "pulse": null,
+        "sentiment": null,
+        "flags": [],
+        "data": "insufficient data"
+      },
+      {
+        "ticker": "ASIANPAINT",
+        "company": "Asian Paints",
+        "pulse": null,
+        "sentiment": null,
+        "flags": [],
+        "data": "insufficient data"
+      },
+      {
+        "ticker": "AXISBANK",
+        "company": "Axis Bank",
+        "pulse": null,
+        "sentiment": null,
+        "flags": [],
+        "data": "insufficient data"
+      },
+      {
+        "ticker": "BAJAJFINSV",
+        "company": "Bajaj Finserv",
+        "pulse": null,
+        "sentiment": null,
+        "flags": [],
+        "data": "insufficient data"
+      },
+      {
+        "ticker": "BAJFINANCE",
+        "company": "Bajaj Finance",
+        "pulse": 34,
+        "sentiment": "positive",
+        "flags": [
+          "disclosure-acceleration"
+        ],
+        "data": "sample-signals"
+      },
+      {
+        "ticker": "BHARTIARTL",
+        "company": "Bharti Airtel",
+        "pulse": null,
+        "sentiment": null,
+        "flags": [],
+        "data": "insufficient data"
+      },
+      {
+        "ticker": "CIPLA",
+        "company": "Cipla",
+        "pulse": null,
+        "sentiment": null,
+        "flags": [],
+        "data": "insufficient data"
+      },
+      {
+        "ticker": "COALINDIA",
+        "company": "Coal India",
+        "pulse": null,
+        "sentiment": null,
+        "flags": [],
+        "data": "insufficient data"
+      },
+      {
+        "ticker": "DRREDDY",
+        "company": "Dr Reddy's Laboratories",
+        "pulse": 34,
+        "sentiment": "positive",
+        "flags": [
+          "disclosure-acceleration"
+        ],
+        "data": "sample-signals"
+      },
+      {
+        "ticker": "EICHERMOT",
+        "company": "Eicher Motors",
+        "pulse": null,
+        "sentiment": null,
+        "flags": [],
+        "data": "insufficient data"
+      },
+      {
+        "ticker": "HCLTECH",
+        "company": "HCL Technologies",
+        "pulse": 33,
+        "sentiment": "negative",
+        "flags": [
+          "hiring-retrenchment",
+          "disclosure-acceleration"
+        ],
+        "data": "sample-signals"
+      },
+      {
+        "ticker": "HDFCBANK",
+        "company": "HDFC Bank",
+        "pulse": 27,
+        "sentiment": "positive",
+        "flags": [
+          "disclosure-acceleration"
+        ],
+        "data": "sample-signals"
+      },
+      {
+        "ticker": "HDFCLIFE",
+        "company": "HDFC Life Insurance",
+        "pulse": null,
+        "sentiment": null,
+        "flags": [],
+        "data": "insufficient data"
+      },
+      {
+        "ticker": "HEROMOTOCO",
+        "company": "Hero MotoCorp",
+        "pulse": null,
+        "sentiment": null,
+        "flags": [],
+        "data": "insufficient data"
+      },
+      {
+        "ticker": "ICICIBANK",
+        "company": "ICICI Bank",
+        "pulse": null,
+        "sentiment": null,
+        "flags": [],
+        "data": "insufficient data"
+      },
+      {
+        "ticker": "INFY",
+        "company": "Infosys",
+        "pulse": 37,
+        "sentiment": "negative",
+        "flags": [
+          "hiring-retrenchment",
+          "disclosure-acceleration"
+        ],
+        "data": "sample-signals"
+      },
+      {
+        "ticker": "ITC",
+        "company": "ITC",
+        "pulse": 52,
+        "sentiment": "positive",
+        "flags": [
+          "capacity-expansion-signal",
+          "order-book-upturn",
+          "disclosure-acceleration"
+        ],
+        "data": "sample-signals"
+      },
+      {
+        "ticker": "LT",
+        "company": "Larsen & Toubro",
+        "pulse": 32,
+        "sentiment": "positive",
+        "flags": [
+          "disclosure-acceleration"
+        ],
+        "data": "sample-signals"
+      },
+      {
+        "ticker": "MARUTI",
+        "company": "Maruti Suzuki India",
+        "pulse": 37,
+        "sentiment": "positive",
+        "flags": [
+          "order-book-upturn",
+          "disclosure-acceleration"
+        ],
+        "data": "sample-signals"
+      },
+      {
+        "ticker": "MM",
+        "company": "Mahindra & Mahindra",
+        "pulse": null,
+        "sentiment": null,
+        "flags": [],
+        "data": "insufficient data"
+      },
+      {
+        "ticker": "NESTLEIND",
+        "company": "Nestle India",
+        "pulse": null,
+        "sentiment": null,
+        "flags": [],
+        "data": "insufficient data"
+      },
+      {
+        "ticker": "NTPC",
+        "company": "NTPC",
+        "pulse": null,
+        "sentiment": null,
+        "flags": [],
+        "data": "insufficient data"
+      },
+      {
+        "ticker": "ONGC",
+        "company": "Oil & Natural Gas Corp",
+        "pulse": null,
+        "sentiment": null,
+        "flags": [],
+        "data": "insufficient data"
+      },
+      {
+        "ticker": "POWERGRID",
+        "company": "Power Grid Corporation of India",
+        "pulse": null,
+        "sentiment": null,
+        "flags": [],
+        "data": "insufficient data"
+      },
+      {
+        "ticker": "RELIANCE",
+        "company": "Reliance Industries",
+        "pulse": 43,
+        "sentiment": "positive",
+        "flags": [
+          "disclosure-acceleration"
+        ],
+        "data": "sample-signals"
+      },
+      {
+        "ticker": "SBILIFE",
+        "company": "SBI Life Insurance",
+        "pulse": null,
+        "sentiment": null,
+        "flags": [],
+        "data": "insufficient data"
+      },
+      {
+        "ticker": "SBIN",
+        "company": "State Bank of India",
+        "pulse": null,
+        "sentiment": null,
+        "flags": [],
+        "data": "insufficient data"
+      },
+      {
+        "ticker": "SHRIRAMFIN",
+        "company": "Shriram Finance",
+        "pulse": null,
+        "sentiment": null,
+        "flags": [],
+        "data": "insufficient data"
+      },
+      {
+        "ticker": "SUNPHARMA",
+        "company": "Sun Pharmaceutical",
+        "pulse": 41,
+        "sentiment": "positive",
+        "flags": [
+          "capacity-expansion-signal",
+          "disclosure-acceleration"
+        ],
+        "data": "sample-signals"
+      },
+      {
+        "ticker": "TATAMOTORS",
+        "company": "Tata Motors",
+        "pulse": 41,
+        "sentiment": "positive",
+        "flags": [
+          "capacity-expansion-signal",
+          "order-book-upturn",
+          "disclosure-acceleration"
+        ],
+        "data": "sample-signals"
+      },
+      {
+        "ticker": "TATASTEEL",
+        "company": "Tata Steel",
+        "pulse": null,
+        "sentiment": null,
+        "flags": [],
+        "data": "insufficient data"
+      },
+      {
+        "ticker": "TCS",
+        "company": "Tata Consultancy Services",
+        "pulse": 21,
+        "sentiment": "negative",
+        "flags": [
+          "hiring-retrenchment"
+        ],
+        "data": "sample-signals"
+      },
+      {
+        "ticker": "TECHM",
+        "company": "Tech Mahindra",
+        "pulse": null,
+        "sentiment": null,
+        "flags": [],
+        "data": "insufficient data"
+      },
+      {
+        "ticker": "TITAN",
+        "company": "Titan Company",
+        "pulse": 37,
+        "sentiment": "positive",
+        "flags": [
+          "capacity-expansion-signal",
+          "disclosure-acceleration"
+        ],
+        "data": "sample-signals"
+      },
+      {
+        "ticker": "TRENT",
+        "company": "Trent",
+        "pulse": null,
+        "sentiment": null,
+        "flags": [],
+        "data": "insufficient data"
+      },
+      {
+        "ticker": "ULTRACEMCO",
+        "company": "UltraTech Cement",
+        "pulse": null,
+        "sentiment": null,
+        "flags": [],
+        "data": "insufficient data"
+      },
+      {
+        "ticker": "WIPRO",
+        "company": "Wipro",
+        "pulse": 32,
+        "sentiment": "negative",
+        "flags": [
+          "hiring-retrenchment",
+          "disclosure-acceleration"
+        ],
+        "data": "sample-signals"
+      }
+    ],
+    "bse500": [
+      {
+        "ticker": "BAJAJ-AUTO",
+        "company": "Bajaj Auto",
+        "pulse": null,
+        "sentiment": null,
+        "flags": [],
+        "data": "insufficient data"
+      },
+      {
+        "ticker": "BERA",
+        "company": "Berger Paints India",
+        "pulse": null,
+        "sentiment": null,
+        "flags": [],
+        "data": "insufficient data"
+      },
+      {
+        "ticker": "CANBK",
+        "company": "Canara Bank",
+        "pulse": null,
+        "sentiment": null,
+        "flags": [],
+        "data": "insufficient data"
+      },
+      {
+        "ticker": "CENTURYFERRO",
+        "company": "Century Ferro Alloys",
+        "pulse": null,
+        "sentiment": null,
+        "flags": [],
+        "data": "insufficient data"
+      },
+      {
+        "ticker": "DALMIACEMENT",
+        "company": "Dalmia Cements",
+        "pulse": null,
+        "sentiment": null,
+        "flags": [],
+        "data": "insufficient data"
+      },
+      {
+        "ticker": "DIVISLAB",
+        "company": "Divi's Laboratories",
+        "pulse": null,
+        "sentiment": null,
+        "flags": [],
+        "data": "insufficient data"
+      },
+      {
+        "ticker": "ESCORTSKUBOTA",
+        "company": "Escorts Kubota",
+        "pulse": null,
+        "sentiment": null,
+        "flags": [],
+        "data": "insufficient data"
+      },
+      {
+        "ticker": "JSWSTEEL",
+        "company": "JSW Steel",
+        "pulse": null,
+        "sentiment": null,
+        "flags": [],
+        "data": "insufficient data"
+      },
+      {
+        "ticker": "LUPIN",
+        "company": "Lupin",
+        "pulse": null,
+        "sentiment": null,
+        "flags": [],
+        "data": "insufficient data"
+      },
+      {
+        "ticker": "PERSISTENT",
+        "company": "Persistent Systems",
+        "pulse": null,
+        "sentiment": null,
+        "flags": [],
+        "data": "insufficient data"
+      },
+      {
+        "ticker": "POLYCAB",
+        "company": "Polycab India",
+        "pulse": null,
+        "sentiment": null,
+        "flags": [],
+        "data": "insufficient data"
+      },
+      {
+        "ticker": "SUVENPHARMA",
+        "company": "Suven Pharma",
+        "pulse": null,
+        "sentiment": null,
+        "flags": [],
+        "data": "insufficient data"
+      },
+      {
+        "ticker": "SUZLON",
+        "company": "Suzlon Energy",
+        "pulse": null,
+        "sentiment": null,
+        "flags": [],
+        "data": "insufficient data"
+      },
+      {
+        "ticker": "TATACOMM",
+        "company": "Tata Communications",
+        "pulse": null,
+        "sentiment": null,
+        "flags": [],
+        "data": "insufficient data"
+      },
+      {
+        "ticker": "TATAPOWER",
+        "company": "Tata Power",
+        "pulse": null,
+        "sentiment": null,
+        "flags": [],
+        "data": "insufficient data"
+      }
+    ],
+    "coverage": {
+      "nifty50_with_pulse": 15,
+      "bse500_with_pulse": 0
+    }
+  },
+  "briefs": {
+    "meta": {
+      "generated_by": "engine/index.js"
+    },
+    "top5": [
+      {
+        "ticker": "ITC",
+        "company": "ITC Ltd",
+        "pulse": 52,
+        "sentiment": "positive",
+        "flags": [
+          "capacity-expansion-signal",
+          "order-book-upturn",
+          "disclosure-acceleration"
+        ],
+        "divergences": [
+          {
+            "pair": [
+              "filings",
+              "employee-geolocations"
+            ],
+            "gap": 0.7,
+            "reading": "strongest signal (filings, up) vs weakest (employee-geolocations, flat) — asymmetric momentum across channels"
+          }
+        ],
+        "confidence": 0.7,
+        "data_quality": {
+          "channels_present": 5,
+          "channels_total": 5,
+          "coverage_pct": 100,
+          "note": "all five channels present"
+        },
+        "channels": {
+          "filings": {
+            "status": "ok",
+            "period": "q2",
+            "current": 5,
+            "prior": 3,
+            "chg_pct": 66.7,
+            "z": 0.7,
+            "direction": "up",
+            "strength": 0.9
+          },
+          "factory-power": {
+            "status": "ok",
+            "period": "q2",
+            "current": 1930,
+            "prior": 1760,
+            "chg_pct": 9.7,
+            "z": 0.1,
+            "direction": "up",
+            "strength": 0.9
+          },
+          "employee-geolocations": {
+            "status": "ok",
+            "period": "q2",
+            "current": 24110,
+            "prior": 23890,
+            "chg_pct": 0.9,
+            "z": 0,
+            "direction": "flat",
+            "strength": 0.4
+          },
+          "hiring-social": {
+            "status": "ok",
+            "period": "q2",
+            "current": 310,
+            "prior": 205,
+            "chg_pct": 51.2,
+            "z": 0.5,
+            "direction": "up",
+            "strength": 0.8
+          },
+          "supply-chain": {
+            "status": "ok",
+            "period": "q2",
+            "current": 95,
+            "prior": 71,
+            "chg_pct": 33.8,
+            "z": 0.3,
+            "direction": "up",
+            "strength": 0.8
+          }
+        }
+      },
+      {
+        "ticker": "RELIANCE",
+        "company": "Reliance Industries",
+        "pulse": 43,
+        "sentiment": "positive",
+        "flags": [
+          "disclosure-acceleration"
+        ],
+        "divergences": [
+          {
+            "pair": [
+              "filings",
+              "employee-geolocations"
+            ],
+            "gap": 0.5,
+            "reading": "strongest signal (filings, up) vs weakest (employee-geolocations, up) — asymmetric momentum across channels"
+          }
+        ],
+        "confidence": 0.7,
+        "data_quality": {
+          "channels_present": 5,
+          "channels_total": 5,
+          "coverage_pct": 100,
+          "note": "all five channels present"
+        },
+        "channels": {
+          "filings": {
+            "status": "ok",
+            "period": "q2",
+            "current": 6,
+            "prior": 4,
+            "chg_pct": 50,
+            "z": 0.5,
+            "direction": "up",
+            "strength": 0.8
+          },
+          "factory-power": {
+            "status": "ok",
+            "period": "q2",
+            "current": 8810,
+            "prior": 8450,
+            "chg_pct": 4.3,
+            "z": 0,
+            "direction": "up",
+            "strength": 0.9
+          },
+          "employee-geolocations": {
+            "status": "ok",
+            "period": "q2",
+            "current": 12750,
+            "prior": 12600,
+            "chg_pct": 1.2,
+            "z": 0,
+            "direction": "up",
+            "strength": 0.4
+          },
+          "hiring-social": {
+            "status": "ok",
+            "period": "q2",
+            "current": 240,
+            "prior": 190,
+            "chg_pct": 26.3,
+            "z": 0.3,
+            "direction": "up",
+            "strength": 0.7
+          },
+          "supply-chain": {
+            "status": "ok",
+            "period": "q2",
+            "current": 92,
+            "prior": 85,
+            "chg_pct": 8.2,
+            "z": 0.1,
+            "direction": "up",
+            "strength": 0.8
+          }
+        }
+      },
+      {
+        "ticker": "SUNPHARMA",
+        "company": "Sun Pharma",
+        "pulse": 41,
+        "sentiment": "positive",
+        "flags": [
+          "capacity-expansion-signal",
+          "disclosure-acceleration"
+        ],
+        "divergences": [
+          {
+            "pair": [
+              "filings",
+              "employee-geolocations"
+            ],
+            "gap": 1,
+            "reading": "strongest signal (filings, up) vs weakest (employee-geolocations, up) — asymmetric momentum across channels"
+          }
+        ],
+        "confidence": 0.7,
+        "data_quality": {
+          "channels_present": 5,
+          "channels_total": 5,
+          "coverage_pct": 100,
+          "note": "all five channels present"
+        },
+        "channels": {
+          "filings": {
+            "status": "ok",
+            "period": "q2",
+            "current": 4,
+            "prior": 2,
+            "chg_pct": 100,
+            "z": 1,
+            "direction": "up",
+            "strength": 0.7
+          },
+          "factory-power": {
+            "status": "ok",
+            "period": "q2",
+            "current": 1120,
+            "prior": 1010,
+            "chg_pct": 10.9,
+            "z": 0.1,
+            "direction": "up",
+            "strength": 0.8
+          },
+          "employee-geolocations": {
+            "status": "ok",
+            "period": "q2",
+            "current": 6730,
+            "prior": 6580,
+            "chg_pct": 2.3,
+            "z": 0,
+            "direction": "up",
+            "strength": 0.4
+          },
+          "hiring-social": {
+            "status": "ok",
+            "period": "q2",
+            "current": 160,
+            "prior": 135,
+            "chg_pct": 18.5,
+            "z": 0.2,
+            "direction": "up",
+            "strength": 0.6
+          },
+          "supply-chain": {
+            "status": "ok",
+            "period": "q2",
+            "current": 71,
+            "prior": 66,
+            "chg_pct": 7.6,
+            "z": 0.1,
+            "direction": "up",
+            "strength": 0.6
+          }
+        }
+      },
+      {
+        "ticker": "TATAMOTORS",
+        "company": "Tata Motors",
+        "pulse": 41,
+        "sentiment": "positive",
+        "flags": [
+          "capacity-expansion-signal",
+          "order-book-upturn",
+          "disclosure-acceleration"
+        ],
+        "divergences": [
+          {
+            "pair": [
+              "filings",
+              "employee-geolocations"
+            ],
+            "gap": 0.4,
+            "reading": "strongest signal (filings, up) vs weakest (employee-geolocations, up) — asymmetric momentum across channels"
+          }
+        ],
+        "confidence": 0.7,
+        "data_quality": {
+          "channels_present": 5,
+          "channels_total": 5,
+          "coverage_pct": 100,
+          "note": "all five channels present"
+        },
+        "channels": {
+          "filings": {
+            "status": "ok",
+            "period": "q2",
+            "current": 3,
+            "prior": 2,
+            "chg_pct": 50,
+            "z": 0.5,
+            "direction": "up",
+            "strength": 0.6
+          },
+          "factory-power": {
+            "status": "ok",
+            "period": "q2",
+            "current": 3980,
+            "prior": 3560,
+            "chg_pct": 11.8,
+            "z": 0.1,
+            "direction": "up",
+            "strength": 0.9
+          },
+          "employee-geolocations": {
+            "status": "ok",
+            "period": "q2",
+            "current": 9450,
+            "prior": 8800,
+            "chg_pct": 7.4,
+            "z": 0.1,
+            "direction": "up",
+            "strength": 0.7
+          },
+          "hiring-social": {
+            "status": "ok",
+            "period": "q2",
+            "current": 175,
+            "prior": 150,
+            "chg_pct": 16.7,
+            "z": 0.2,
+            "direction": "up",
+            "strength": 0.5
+          },
+          "supply-chain": {
+            "status": "ok",
+            "period": "q2",
+            "current": 88,
+            "prior": 74,
+            "chg_pct": 18.9,
+            "z": 0.2,
+            "direction": "up",
+            "strength": 0.7
+          }
+        }
+      },
+      {
+        "ticker": "INFY",
+        "company": "Infosys",
+        "pulse": 37,
+        "sentiment": "negative",
+        "flags": [
+          "hiring-retrenchment",
+          "disclosure-acceleration"
+        ],
+        "divergences": [
+          {
+            "pair": [
+              "filings",
+              "hiring-social"
+            ],
+            "gap": 1.2,
+            "reading": "strongest signal (filings, up) vs weakest (hiring-social, down) — fundamentals and activity are diverging"
+          }
+        ],
+        "confidence": 0.7,
+        "data_quality": {
+          "channels_present": 5,
+          "channels_total": 5,
+          "coverage_pct": 100,
+          "note": "all five channels present"
+        },
+        "channels": {
+          "filings": {
+            "status": "ok",
+            "period": "q2",
+            "current": 4,
+            "prior": 2,
+            "chg_pct": 100,
+            "z": 1,
+            "direction": "up",
+            "strength": 0.7
+          },
+          "factory-power": {
+            "status": "ok",
+            "period": "q2",
+            "current": 1540,
+            "prior": 1610,
+            "chg_pct": -4.3,
+            "z": 0,
+            "direction": "down",
+            "strength": 0.6
+          },
+          "employee-geolocations": {
+            "status": "ok",
+            "period": "q2",
+            "current": 30110,
+            "prior": 30240,
+            "chg_pct": -0.4,
+            "z": 0,
+            "direction": "flat",
+            "strength": 0.5
+          },
+          "hiring-social": {
+            "status": "ok",
+            "period": "q2",
+            "current": 410,
+            "prior": 520,
+            "chg_pct": -21.2,
+            "z": -0.2,
+            "direction": "down",
+            "strength": 0.7
+          },
+          "supply-chain": {
+            "status": "ok",
+            "period": "q2",
+            "current": 55,
+            "prior": 58,
+            "chg_pct": -5.2,
+            "z": -0.1,
+            "direction": "down",
+            "strength": 0.3
+          }
+        }
+      }
+    ]
+  },
+  "sampleRadar": {
+    "meta": {
+      "source": "DEMO synthetic alternative-data (not sourced from any real company, regulator or utility)",
+      "generated_by": "hand-authored narrative sample (read-only seed for the UI; the live pipeline is engine/index.js -> data/radar.json)",
+      "deterministic": true,
+      "as_of": "FY2025-q4 (quarter ended 2025-03-31)",
+      "note": "Rich demo record telling one company's story across five alternative channels. Live mode would source SEBI/GDS filings, CERC/MoP power, consented geolocation & hiring composites and supply-chain trackers — no network access is required by this repo."
+    },
+    "companies": [
+      {
+        "ticker": "CGP",
+        "code": "NSE:CGP",
+        "company": "Crompton Greaves Consumer Electricals (DEMO)",
+        "isin": "INE531A01019",
+        "sector": "Consumer Durables & Appliances",
+        "sector_code": "NSE:CGP · INE531A01019",
+        "market": "NSE",
+        "tags": [
+          "capacity-expansion",
+          "order-book-upturn",
+          "demo"
+        ],
+        "data_as_of": "2025-03-31T00:00:00Z",
+        "composite_pulse": 82,
+        "sentiment": 0.71,
+        "sentiment_summary": [
+          "Pre-results read: **capacity expansion is underway** ahead of an **order-book upturn**; filings, power and hiring are converging while supply-chain lead times tighten.",
+          "The five channels collectively point to a build-out that will show up in the next 2-3 quarters of reported revenue."
+        ],
+        "event_flags": [
+          "capacity-expansion",
+          "order-book-upturn",
+          "filings-acceleration",
+          "hiring-surge"
+        ],
+        "confidence": 0.82,
+        "quality_notes": [
+          "DEMO data — all values are fabricated for illustration; no live regulator/utility/board API was called.",
+          "Employee geolocation channel is an **anonymized, consented on-site headcount composite** (no raw GPS).",
+          "Factory-power figures are a synthetic CERC/DISCOM stand-in; treat the z-score as relative to the trailing window, not an absolute forecast."
+        ],
+        "channels": [
+          {
+            "key": "filings",
+            "label": "Corporate Filings",
+            "unit": "disclosures/quarter",
+            "current": 9,
+            "prior": 5,
+            "z": 0.9,
+            "direction": "up",
+            "strength": 78,
+            "history": [
+              3,
+              4,
+              4,
+              5,
+              9
+            ],
+            "event_flag": "filings-acceleration"
+          },
+          {
+            "key": "factory-power",
+            "label": "Factory Power",
+            "unit": "MWh",
+            "current": 15480,
+            "prior": 11200,
+            "z": 0.71,
+            "direction": "up",
+            "strength": 88,
+            "history": [
+              9800,
+              10400,
+              10750,
+              11200,
+              15480
+            ]
+          },
+          {
+            "key": "employee-geolocations",
+            "label": "On-site Headcount",
+            "unit": "employees (000s)",
+            "current": 3.94,
+            "prior": 3.62,
+            "z": 0.3,
+            "direction": "up",
+            "strength": 55,
+            "history": [
+              3.4,
+              3.5,
+              3.55,
+              3.62,
+              3.94
+            ]
+          },
+          {
+            "key": "hiring-social",
+            "label": "Hiring & Social Velocity",
+            "unit": "open roles this quarter",
+            "current": 128,
+            "prior": 88,
+            "z": 0.58,
+            "direction": "up",
+            "strength": 74,
+            "history": [
+              72,
+              78,
+              80,
+              88,
+              128
+            ]
+          },
+          {
+            "key": "supply-chain",
+            "label": "Supply-Chain Lead-time",
+            "unit": "index (lower = tighter)",
+            "current": 21,
+            "prior": 34,
+            "z": -0.52,
+            "direction": "down",
+            "strength": 41,
+            "history": [
+              38,
+              36,
+              35,
+              34,
+              21
+            ]
+          }
+        ],
+        "briefs": [
+          {
+            "ticker": "CGP",
+            "company": "Crompton Greaves Consumer Electricals (DEMO)",
+            "code": "NSE:CGP",
+            "name": "Crompton Greaves",
+            "pulse": 82,
+            "confidence": 0.82,
+            "sources": [
+              "DEMO: SEBI e-filing RSS stand-in",
+              "DEMO: CERC / DISCOM power stand-in",
+              "DEMO: consented geolocation & job-board composites"
+            ],
+            "notes": [
+              "DEMO data — all values fabricated for illustration; no live API was called.",
+              "Geolocation is an anonymized, consented on-site headcount composite (no raw GPS).",
+              "Power z-score is relative to the trailing window, not an absolute forecast."
+            ],
+            "markdown": "## WHY THIS MATTERS — Crompton Greaves (DEMO)\n\nAll five alternative channels turn positive in the same quarter. **Filings** jump from 5 to 9 disclosures (z **+0.90**) — a capex plant-registration pattern consistent with a **capacity-expansion**. **Factory power** is up **+38%** quarter-on-quarter (15,480 vs 11,200 MWh, z **+0.71**), the strongest absolute delta in the set, and the usual leading indicator of a line running hot before revenue lands. **On-site headcount** climbs **+9%** (3.94k vs 3.62k, z **+0.30**) and **open hiring** surges **+45%** operator/technician roles (128 vs 88, z **+0.58**) — new shifts, not net-new head-office seats.\n\nThe **supply-chain** channel is the tension: lead-times compress to an index of 21 from 34 (z **-0.52**), i.e. input availability is tightening exactly as the order book expands. That pairing — **power up + supply-chain tight + filings filing capex** — is the classic \"capacity expansion ahead of order-book upturn\" signature.\n\n**Read:** composite pulse **82 / 100**, sentiment **+0.71 / 10**. Pre-results, the activity says a new plant/line is commissioning and orders are pulling forward. **Watch item: Q2 energy intensity** — if power keeps climbing while filings cool, the expansion is confirmed; if power rolls back, the order-book upturn is front-loaded.\n\n*DEMO — synthetic numbers; not investment research.*"
+          }
+        ]
+      },
+      {
+        "ticker": "TTAN",
+        "code": "NSE:TTAN",
+        "company": "Titan Ltd (DEMO)",
+        "isin": "INE197B01010",
+        "sector": "Consumer Goods & Jewellery",
+        "sector_code": "NSE:TTAN · INE197B01010",
+        "market": "NSE",
+        "tags": [
+          "moderate-momentum",
+          "demo"
+        ],
+        "data_as_of": "2025-03-31T00:00:00Z",
+        "composite_pulse": 54,
+        "sentiment": 0.33,
+        "sentiment_summary": [
+          "Broad-based but modest gains across all five channels; a **steady-state growth** read with no sharp event flag this period."
+        ],
+        "event_flags": [],
+        "confidence": 0.66,
+        "quality_notes": [
+          "DEMO data — synthetic, no live API called.",
+          "Employee geolocation is an anonymized on-site headcount composite.",
+          "Jewellery gold-price input is external; not modeled in this demo channel set."
+        ],
+        "channels": [
+          {
+            "key": "filings",
+            "label": "Corporate Filings",
+            "unit": "disclosures/quarter",
+            "current": 3,
+            "prior": 3,
+            "z": 0,
+            "direction": "flat",
+            "strength": 40,
+            "history": [
+              3,
+              3,
+              3,
+              3,
+              3
+            ]
+          },
+          {
+            "key": "factory-power",
+            "label": "Factory Power",
+            "unit": "MWh",
+            "current": 4620,
+            "prior": 4410,
+            "z": 0.1,
+            "direction": "up",
+            "strength": 60,
+            "history": [
+              4200,
+              4300,
+              4380,
+              4410,
+              4620
+            ]
+          },
+          {
+            "key": "employee-geolocations",
+            "label": "On-site Headcount",
+            "unit": "employees (000s)",
+            "current": 9.6,
+            "prior": 9.4,
+            "z": 0.1,
+            "direction": "up",
+            "strength": 45,
+            "history": [
+              9.1,
+              9.2,
+              9.3,
+              9.4,
+              9.6
+            ]
+          },
+          {
+            "key": "hiring-social",
+            "label": "Hiring & Social Velocity",
+            "unit": "open roles this quarter",
+            "current": 41,
+            "prior": 38,
+            "z": 0.1,
+            "direction": "up",
+            "strength": 48,
+            "history": [
+              33,
+              35,
+              36,
+              38,
+              41
+            ]
+          },
+          {
+            "key": "supply-chain",
+            "label": "Supply-Chain Lead-time",
+            "unit": "index (lower = tighter)",
+            "current": 28,
+            "prior": 29,
+            "z": 0.05,
+            "direction": "up",
+            "strength": 38,
+            "history": [
+              30,
+              30,
+              29,
+              29,
+              28
+            ]
+          }
+        ]
+      },
+      {
+        "ticker": "AIA",
+        "code": "BSE:AIA",
+        "company": "AIA Engineering Ltd (DEMO)",
+        "isin": "INE665A01015",
+        "sector": "Machinery & Defence",
+        "sector_code": "BSE:AIA · INE665A01015",
+        "market": "BSE",
+        "tags": [
+          "order-book-upturn",
+          "strong-momentum",
+          "demo"
+        ],
+        "data_as_of": "2025-03-31T00:00:00Z",
+        "composite_pulse": 74,
+        "sentiment": 0.55,
+        "sentiment_summary": [
+          "Strong **order-book upturn** signature: supply-chain lead-times lengthening while factory power and hiring both step up. Watch delivery slippage risk."
+        ],
+        "event_flags": [
+          "order-book-upturn",
+          "capacity-expansion"
+        ],
+        "confidence": 0.78,
+        "quality_notes": [
+          "DEMO data — synthetic, no live API called.",
+          "On-site headcount is a consented, anonymized composite.",
+          "Machinery export mix (domestic vs OEM) is not broken out in this demo."
+        ],
+        "channels": [
+          {
+            "key": "filings",
+            "label": "Corporate Filings",
+            "unit": "disclosures/quarter",
+            "current": 7,
+            "prior": 5,
+            "z": 0.4,
+            "direction": "up",
+            "strength": 70,
+            "history": [
+              4,
+              4,
+              5,
+              5,
+              7
+            ]
+          },
+          {
+            "key": "factory-power",
+            "label": "Factory Power",
+            "unit": "MWh",
+            "current": 8300,
+            "prior": 6900,
+            "z": 0.5,
+            "direction": "up",
+            "strength": 80,
+            "history": [
+              6100,
+              6400,
+              6600,
+              6900,
+              8300
+            ]
+          },
+          {
+            "key": "employee-geolocations",
+            "label": "On-site Headcount",
+            "unit": "employees (000s)",
+            "current": 2.9,
+            "prior": 2.7,
+            "z": 0.4,
+            "direction": "up",
+            "strength": 58,
+            "history": [
+              2.5,
+              2.6,
+              2.65,
+              2.7,
+              2.9
+            ]
+          },
+          {
+            "key": "hiring-social",
+            "label": "Hiring & Social Velocity",
+            "unit": "open roles this quarter",
+            "current": 96,
+            "prior": 70,
+            "z": 0.42,
+            "direction": "up",
+            "strength": 72,
+            "history": [
+              58,
+              61,
+              64,
+              70,
+              96
+            ]
+          },
+          {
+            "key": "supply-chain",
+            "label": "Supply-Chain Lead-time",
+            "unit": "index (lower = tighter)",
+            "current": 41,
+            "prior": 33,
+            "z": 0.48,
+            "direction": "down",
+            "strength": 46,
+            "history": [
+              30,
+              31,
+              32,
+              33,
+              41
+            ]
+          }
+        ]
+      },
+      {
+        "ticker": "DLF",
+        "code": "NSE:DLF",
+        "company": "DLF Ltd (DEMO)",
+        "isin": "INE055A01011",
+        "sector": "Real Estate & REITs",
+        "sector_code": "NSE:DLF · INE055A01011",
+        "market": "NSE",
+        "tags": [
+          "cooling",
+          "demo"
+        ],
+        "data_as_of": "2025-03-31T00:00:00Z",
+        "composite_pulse": 38,
+        "sentiment": -0.2,
+        "sentiment_summary": [
+          "A **cooling** read: headcount and power eking down quarter-on-quarter with flat filings — activity is winding down, not a demand signal."
+        ],
+        "event_flags": [
+          "utilization-softening"
+        ],
+        "confidence": 0.55,
+        "quality_notes": [
+          "DEMO data — synthetic, no live API called.",
+          "Real-estate activity is lumpy; a single-quarter dip can be noise.",
+          "Geolocation here is an anonymized on-site/site-presence composite."
+        ],
+        "channels": [
+          {
+            "key": "filings",
+            "label": "Corporate Filings",
+            "unit": "disclosures/quarter",
+            "current": 2,
+            "prior": 3,
+            "z": -0.2,
+            "direction": "down",
+            "strength": 30,
+            "history": [
+              3,
+              3,
+              3,
+              3,
+              2
+            ]
+          },
+          {
+            "key": "factory-power",
+            "label": "Site Power",
+            "unit": "MWh",
+            "current": 5200,
+            "prior": 5600,
+            "z": -0.25,
+            "direction": "down",
+            "strength": 35,
+            "history": [
+              5900,
+              5800,
+              5700,
+              5600,
+              5200
+            ]
+          },
+          {
+            "key": "employee-geolocations",
+            "label": "Site Headcount",
+            "unit": "employees (000s)",
+            "current": 1.8,
+            "prior": 1.95,
+            "z": -0.3,
+            "direction": "down",
+            "strength": 42,
+            "history": [
+              2.1,
+              2.05,
+              2,
+              1.95,
+              1.8
+            ]
+          },
+          {
+            "key": "hiring-social",
+            "label": "Hiring & Social Velocity",
+            "unit": "open roles this quarter",
+            "current": 12,
+            "prior": 19,
+            "z": -0.4,
+            "direction": "down",
+            "strength": 33,
+            "history": [
+              24,
+              22,
+              21,
+              19,
+              12
+            ]
+          },
+          {
+            "key": "supply-chain",
+            "label": "Supply-Chain Lead-time",
+            "unit": "index (lower = tighter)",
+            "current": 31,
+            "prior": 28,
+            "z": 0.1,
+            "direction": "down",
+            "strength": 38,
+            "history": [
+              26,
+              27,
+              28,
+              28,
+              31
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "signalsCsv": "ticker,channel,period,current,prior,chg_pct,z,direction,strength,status\nITC,filings,q2,5,3,66.7,0.7,up,0.9,ok\nITC,factory-power,q2,1930,1760,9.7,0.1,up,0.9,ok\nITC,employee-geolocations,q2,24110,23890,0.9,0,flat,0.4,ok\nITC,hiring-social,q2,310,205,51.2,0.5,up,0.8,ok\nITC,supply-chain,q2,95,71,33.8,0.3,up,0.8,ok\nRELIANCE,filings,q2,6,4,50,0.5,up,0.8,ok\nRELIANCE,factory-power,q2,8810,8450,4.3,0,up,0.9,ok\nRELIANCE,employee-geolocations,q2,12750,12600,1.2,0,up,0.4,ok\nRELIANCE,hiring-social,q2,240,190,26.3,0.3,up,0.7,ok\nRELIANCE,supply-chain,q2,92,85,8.2,0.1,up,0.8,ok\nSUNPHARMA,filings,q2,4,2,100,1,up,0.7,ok\nSUNPHARMA,factory-power,q2,1120,1010,10.9,0.1,up,0.8,ok\nSUNPHARMA,employee-geolocations,q2,6730,6580,2.3,0,up,0.4,ok\nSUNPHARMA,hiring-social,q2,160,135,18.5,0.2,up,0.6,ok\nSUNPHARMA,supply-chain,q2,71,66,7.6,0.1,up,0.6,ok\nTATAMOTORS,filings,q2,3,2,50,0.5,up,0.6,ok\nTATAMOTORS,factory-power,q2,3980,3560,11.8,0.1,up,0.9,ok\nTATAMOTORS,employee-geolocations,q2,9450,8800,7.4,0.1,up,0.7,ok\nTATAMOTORS,hiring-social,q2,175,150,16.7,0.2,up,0.5,ok\nTATAMOTORS,supply-chain,q2,88,74,18.9,0.2,up,0.7,ok\nINFY,filings,q2,4,2,100,1,up,0.7,ok\nINFY,factory-power,q2,1540,1610,-4.3,0,down,0.6,ok\nINFY,employee-geolocations,q2,30110,30240,-0.4,0,flat,0.5,ok\nINFY,hiring-social,q2,410,520,-21.2,-0.2,down,0.7,ok\nINFY,supply-chain,q2,55,58,-5.2,-0.1,down,0.3,ok\nMARUTI,filings,q2,2,1,100,1,up,0.5,ok\nMARUTI,factory-power,q2,2130,2050,3.9,0,up,0.7,ok\nMARUTI,employee-geolocations,q2,5890,5670,3.9,0,up,0.5,ok\nMARUTI,hiring-social,q2,90,72,25,0.3,up,0.5,ok\nMARUTI,supply-chain,q2,69,61,13.1,0.1,up,0.7,ok\nTITAN,filings,q2,3,2,50,0.5,up,0.6,ok\nTITAN,factory-power,q2,412,380,8.4,0.1,up,0.8,ok\nTITAN,employee-geolocations,q2,11840,11610,2,0,up,0.5,ok\nTITAN,hiring-social,q2,142,121,17.4,0.2,up,0.7,ok\nTITAN,supply-chain,q2,87,82,6.1,0.1,up,0.6,ok\nBAJFINANCE,filings,q2,2,1,100,1,up,0.5,ok\nBAJFINANCE,factory-power,q2,640,610,4.9,0,up,0.6,ok\nBAJFINANCE,employee-geolocations,q2,4310,4150,3.9,0,up,0.5,ok\nBAJFINANCE,hiring-social,q2,220,180,22.2,0.2,up,0.7,ok\nBAJFINANCE,supply-chain,q2,45,42,7.1,0.1,up,0.4,ok\nDRREDDY,filings,q2,3,1,200,2,up,0.7,ok\nDRREDDY,factory-power,q2,940,910,3.3,0,up,0.6,ok\nDRREDDY,employee-geolocations,q2,5120,5090,0.6,0,flat,0.3,ok\nDRREDDY,hiring-social,q2,98,85,15.3,0.2,up,0.5,ok\nDRREDDY,supply-chain,q2,60,55,9.1,0.1,up,0.5,ok\nHCLTECH,filings,q2,3,1,200,2,up,0.6,ok\nHCLTECH,factory-power,q2,1180,1240,-4.8,0,down,0.5,ok\nHCLTECH,employee-geolocations,q2,21350,21480,-0.6,0,flat,0.4,ok\nHCLTECH,hiring-social,q2,180,230,-21.7,-0.2,down,0.6,ok\nHCLTECH,supply-chain,q2,38,42,-9.5,-0.1,down,0.4,ok\nLT,filings,q2,3,2,50,0.5,up,0.6,ok\nLT,factory-power,q2,1210,1150,5.2,0.1,up,0.7,ok\nLT,employee-geolocations,q2,15200,14900,2,0,up,0.4,ok\nLT,hiring-social,q2,205,185,10.8,0.1,up,0.5,ok\nLT,supply-chain,q2,81,77,5.2,0.1,up,0.6,ok\nWIPRO,filings,q2,2,1,100,1,up,0.4,ok\nWIPRO,factory-power,q2,890,920,-3.3,0,down,0.5,ok\nWIPRO,employee-geolocations,q2,48700,49100,-0.8,0,flat,0.5,ok\nWIPRO,hiring-social,q2,210,340,-38.2,-0.4,down,0.7,ok\nWIPRO,supply-chain,q2,40,46,-13,-0.1,down,0.4,ok\nADANIPORTS,filings,q2,2,1,100,1,up,0.5,ok\nADANIPORTS,factory-power,q2,1470,1430,2.8,0,up,0.6,ok\nADANIPORTS,employee-geolocations,q2,3260,3210,1.6,0,up,0.3,ok\nADANIPORTS,hiring-social,q2,55,48,14.6,0.1,up,0.4,ok\nADANIPORTS,supply-chain,q2,74,70,5.7,0.1,up,0.6,ok\nHDFCBANK,filings,q2,2,1,100,1,up,0.5,ok\nHDFCBANK,factory-power,q2,2210,2190,0.9,0,flat,0.3,ok\nHDFCBANK,employee-geolocations,q2,41020,40800,0.5,0,flat,0.4,ok\nHDFCBANK,hiring-social,q2,95,88,8,0.1,up,0.5,ok\nHDFCBANK,supply-chain,q2,64,60,6.7,0.1,up,0.4,ok\nASHOKLEY,filings,q2,1,0,,,flat,0.4,ok\nASHOKLEY,factory-power,q2,310,290,6.9,0.1,up,0.5,ok\nASHOKLEY,employee-geolocations,q2,1450,1430,1.4,0,up,0.2,ok\nASHOKLEY,hiring-social,q2,35,30,16.7,0.2,up,0.4,ok\nASHOKLEY,supply-chain,q2,52,48,8.3,0.1,up,0.5,ok\nTCS,filings,q2,1,1,0,0,flat,0.3,ok\nTCS,factory-power,q2,2350,2380,-1.3,0,down,0.4,ok\nTCS,employee-geolocations,q2,56400,56200,0.4,0,flat,0.3,ok\nTCS,hiring-social,q2,85,120,-29.2,-0.3,down,0.6,ok\nTCS,supply-chain,q2,30,35,-14.3,-0.1,down,0.3,ok\n"
+};</script>
+</body>
+</html>

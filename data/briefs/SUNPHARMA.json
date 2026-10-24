@@ -1,0 +1,28 @@
+{
+  "ticker": "SUNPHARMA",
+  "company": "Sun Pharma",
+  "pulse": 41,
+  "sentiment": "positive",
+  "confidence": 0.7,
+  "flags": [
+    "capacity-expansion-signal",
+    "disclosure-acceleration"
+  ],
+  "divergences": [
+    {
+      "pair": [
+        "filings",
+        "employee-geolocations"
+      ],
+      "gap": 1,
+      "reading": "strongest signal (filings, up) vs weakest (employee-geolocations, up) — asymmetric momentum across channels"
+    }
+  ],
+  "brief_text": "# SUNPHARMA — Sun Pharma (DEMO BRIEF)\n\nComposite pulse: 41/100 · sentiment positive · confidence 0.7\nCoverage: all five channels present\n\n## Channels\n- filings: 4 vs prior 2 (100%; z=1; up)\n- factory-power: 1120 vs prior 1010 (10.9%; z=0.1; up)\n- employee-geolocations: 6730 vs prior 6580 (2.3%; z=0; up)\n- hiring-social: 160 vs prior 135 (18.5%; z=0.2; up)\n- supply-chain: 71 vs prior 66 (7.6%; z=0.1; up)\n\n## Flags\n- capacity-expansion-signal\n- disclosure-acceleration\n\n## Divergences\n- filings <-> employee-geolocations: strongest signal (filings, up) vs weakest (employee-geolocations, up) — asymmetric momentum across channels\n\n---\nDEMO DATA — synthetic demo signals; not investment research. Live mode would source SEBI/GDS filings, MoP power data, consented geolocation & hiring aggregates.",
+  "data_quality": {
+    "channels_present": 5,
+    "channels_total": 5,
+    "coverage_pct": 100,
+    "note": "all five channels present"
+  }
+}

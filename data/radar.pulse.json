@@ -1,0 +1,48 @@
+{
+  "meta": {
+    "source": "demo",
+    "generated_by": "pulse_engine",
+    "engine": "python",
+    "skipped_rows": 0,
+    "tickers": 4,
+    "rows": 20
+  },
+  "companies": [
+    {
+      "ticker": "BAJFINANCE",
+      "company": "Bajaj Finance",
+      "period": "ytd",
+      "value": 801.2,
+      "prior": 744.0,
+      "z": 2.6271246517358287,
+      "trend": "up"
+    },
+    {
+      "ticker": "INFY",
+      "company": "Infosys",
+      "period": "ytd",
+      "value": 1466.5,
+      "prior": 1488.9,
+      "z": -1.4986677155628818,
+      "trend": "flat"
+    },
+    {
+      "ticker": "TATAMOTORS",
+      "company": "Tata Motors",
+      "period": "ytd",
+      "value": 4590.3,
+      "prior": 4401.7,
+      "z": 1.7600793661401823,
+      "trend": "flat"
+    },
+    {
+      "ticker": "TITAN",
+      "company": "Titan Ltd",
+      "period": "ytd",
+      "value": 455.2,
+      "prior": 431.8,
+      "z": 2.3817973602538096,
+      "trend": "up"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "ticker": "RELIANCE",
+  "company": "Reliance Industries",
+  "pulse": 43,
+  "sentiment": "positive",
+  "confidence": 0.7,
+  "flags": [
+    "disclosure-acceleration"
+  ],
+  "divergences": [
+    {
+      "pair": [
+        "filings",
+        "employee-geolocations"
+      ],
+      "gap": 0.5,
+      "reading": "strongest signal (filings, up) vs weakest (employee-geolocations, up) — asymmetric momentum across channels"
+    }
+  ],
+  "brief_text": "# RELIANCE — Reliance Industries (DEMO BRIEF)\n\nComposite pulse: 43/100 · sentiment positive · confidence 0.7\nCoverage: all five channels present\n\n## Channels\n- filings: 6 vs prior 4 (50%; z=0.5; up)\n- factory-power: 8810 vs prior 8450 (4.3%; z=0; up)\n- employee-geolocations: 12750 vs prior 12600 (1.2%; z=0; up)\n- hiring-social: 240 vs prior 190 (26.3%; z=0.3; up)\n- supply-chain: 92 vs prior 85 (8.2%; z=0.1; up)\n\n## Flags\n- disclosure-acceleration\n\n## Divergences\n- filings <-> employee-geolocations: strongest signal (filings, up) vs weakest (employee-geolocations, up) — asymmetric momentum across channels\n\n---\nDEMO DATA — synthetic demo signals; not investment research. Live mode would source SEBI/GDS filings, MoP power data, consented geolocation & hiring aggregates.",
+  "data_quality": {
+    "channels_present": 5,
+    "channels_total": 5,
+    "coverage_pct": 100,
+    "note": "all five channels present"
+  }
+}

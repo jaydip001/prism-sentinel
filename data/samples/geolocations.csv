@@ -1,0 +1,19 @@
+# PRISM Sentinel — DEMO DATA (synthetic; consented on-site geolocation composites, no raw GPS)
+# Standing-in feed: aggregated headcount presence (Naucrier-style), anonymized
+# Columns: ticker,company,period,value  (value = on-site headcount, thousands)
+ticker,company,period,value
+TITAN,Titan Ltd,q1,11.6
+TITAN,Titan Ltd,q2,11.8
+TITAN,Titan Ltd,q3,12.3
+TITAN,Titan Ltd,q4,12.9
+TITAN,Titan Ltd,ytd,13.4
+WIPRO,Wipro,q1,49.1
+WIPRO,Wipro,q2,48.7
+WIPRO,Wipro,q3,47.9
+WIPRO,Wipro,q4,47.2
+WIPRO,Wipro,ytd,46.5
+HDFCBANK,HDFC Bank,q1,40.8
+HDFCBANK,HDFC Bank,q2,41.0
+HDFCBANK,HDFC Bank,q3,41.6
+HDFCBANK,HDFC Bank,q4,42.1
+HDFCBANK,HDFC Bank,ytd,42.7

@@ -1,0 +1,21 @@
+{
+  "universe": "bse500",
+  "note": "DEMO static reference tickers (~15 BSE-500 style mid-cap constituents, excluding NIFTY-50 names). Used only as lookup metadata — the radar engine computes pulse from signal CSVs; tickers absent from signals get null + 'insufficient data'.",
+  "tickers": [
+    { "ticker": "BAJAJ-AUTO", "name": "Bajaj Auto" },
+    { "ticker": "BERA", "name": "Berger Paints India" },
+    { "ticker": "CANBK", "name": "Canara Bank" },
+    { "ticker": "CENTURYFERRO", "name": "Century Ferro Alloys" },
+    { "ticker": "DALMIACEMENT", "name": "Dalmia Cements" },
+    { "ticker": "DIVISLAB", "name": "Divi's Laboratories" },
+    { "ticker": "ESCORTSKUBOTA", "name": "Escorts Kubota" },
+    { "ticker": "JSWSTEEL", "name": "JSW Steel" },
+    { "ticker": "LUPIN", "name": "Lupin" },
+    { "ticker": "PERSISTENT", "name": "Persistent Systems" },
+    { "ticker": "POLYCAB", "name": "Polycab India" },
+    { "ticker": "TATAPOWER", "name": "Tata Power" },
+    { "ticker": "TATACOMM", "name": "Tata Communications" },
+    { "ticker": "SUVENPHARMA", "name": "Suven Pharma" },
+    { "ticker": "SUZLON", "name": "Suzlon Energy" }
+  ]
+}

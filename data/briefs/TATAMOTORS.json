@@ -1,0 +1,29 @@
+{
+  "ticker": "TATAMOTORS",
+  "company": "Tata Motors",
+  "pulse": 41,
+  "sentiment": "positive",
+  "confidence": 0.7,
+  "flags": [
+    "capacity-expansion-signal",
+    "order-book-upturn",
+    "disclosure-acceleration"
+  ],
+  "divergences": [
+    {
+      "pair": [
+        "filings",
+        "employee-geolocations"
+      ],
+      "gap": 0.4,
+      "reading": "strongest signal (filings, up) vs weakest (employee-geolocations, up) — asymmetric momentum across channels"
+    }
+  ],
+  "brief_text": "# TATAMOTORS — Tata Motors (DEMO BRIEF)\n\nComposite pulse: 41/100 · sentiment positive · confidence 0.7\nCoverage: all five channels present\n\n## Channels\n- filings: 3 vs prior 2 (50%; z=0.5; up)\n- factory-power: 3980 vs prior 3560 (11.8%; z=0.1; up)\n- employee-geolocations: 9450 vs prior 8800 (7.4%; z=0.1; up)\n- hiring-social: 175 vs prior 150 (16.7%; z=0.2; up)\n- supply-chain: 88 vs prior 74 (18.9%; z=0.2; up)\n\n## Flags\n- capacity-expansion-signal\n- order-book-upturn\n- disclosure-acceleration\n\n## Divergences\n- filings <-> employee-geolocations: strongest signal (filings, up) vs weakest (employee-geolocations, up) — asymmetric momentum across channels\n\n---\nDEMO DATA — synthetic demo signals; not investment research. Live mode would source SEBI/GDS filings, MoP power data, consented geolocation & hiring aggregates.",
+  "data_quality": {
+    "channels_present": 5,
+    "channels_total": 5,
+    "coverage_pct": 100,
+    "note": "all five channels present"
+  }
+}

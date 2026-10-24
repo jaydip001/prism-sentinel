@@ -1,0 +1,25 @@
+# PRISM Sentinel — DEMO DATA (synthetic; not sourced from any real company or utility)
+# Standing-in feed: CERC / Ministry of Power plant-utilization + DISCOM substation demand
+# Columns: ticker,company,period,value  (value = MWh, aggregated & anonymized demo)
+# Live mode would replace these rows with regulator/substation feeds; the engine math is identical.
+ticker,company,period,value
+TITAN,Titan Ltd,q1,372.5
+TITAN,Titan Ltd,q2,398.1
+TITAN,Titan Ltd,q3,412.4
+TITAN,Titan Ltd,q4,431.8
+TITAN,Titan Ltd,ytd,455.2
+TATAMOTORS,Tata Motors,q1,3560.0
+TATAMOTORS,Tata Motors,q2,3980.5
+TATAMOTORS,Tata Motors,q3,4210.2
+TATAMOTORS,Tata Motors,q4,4401.7
+TATAMOTORS,Tata Motors,ytd,4590.3
+INFY,Infosys,q1,1610.4
+INFY,Infosys,q2,1540.2
+INFY,Infosys,q3,1505.8
+INFY,Infosys,q4,1488.9
+INFY,Infosys,ytd,1466.5
+BAJFINANCE,Bajaj Finance,q1,610.3
+BAJFINANCE,Bajaj Finance,q2,640.1
+BAJFINANCE,Bajaj Finance,q3,682.6
+BAJFINANCE,Bajaj Finance,q4,744.0
+BAJFINANCE,Bajaj Finance,ytd,801.2

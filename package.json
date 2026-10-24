@@ -1,0 +1,15 @@
+{
+  "name": "prismsentinel",
+  "version": "1.0.0",
+  "description": "PRISM Sentinel — local alternative-data company-pulse radar for Indian listed companies (zero-dependency, Node 18+ stdlib)",
+  "private": true,
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "radar": "node engine/index.js radar",
+    "pulse": "node scripts/engine-dispatch.js pulse",
+    "build-offline": "node scripts/inline.js"
+  }
+}
